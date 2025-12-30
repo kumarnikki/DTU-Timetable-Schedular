@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
 // Middleware
 app.use(cors({
     origin: '*',
@@ -28,6 +30,10 @@ app.post('/api/ai/chat', async (req, res) => {
             return res.status(500).json({ success: false, message: 'AI Service Not Configured. Please add GEMINI_API_KEY to Render environment variables.' });
         }
 
+        // Initialize Gemini SDK
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
         const prompt = `You are "DTU Academic Bot", a helpful assistant for Delhi Technological University students.
 You have access to the following timetable data for the user:
 ${JSON.stringify(context, null, 2)}
@@ -40,32 +46,20 @@ Instructions:
 3. Be concise and professional.
 4. Use standard Indian English.`;
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
-        });
+        const result = await model.generateContent(prompt);
+        const aiResponse = result.response.text();
 
-        const data = await response.json();
-        
-        if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
-            const aiResponse = data.candidates[0].content.parts[0].text;
+        if (aiResponse) {
             res.json({ success: true, response: aiResponse });
         } else {
-            console.error("Gemini API Error Detail:", JSON.stringify(data, null, 2));
-            let errorMsg = 'AI failed to respond.';
-            if (data.error && data.error.message) {
-                errorMsg = `Gemini Error: ${data.error.message}`;
-            } else if (data.promptFeedback && data.promptFeedback.blockReason) {
-                errorMsg = `Gemini Blocked: ${data.promptFeedback.blockReason}`;
-            }
-            res.status(500).json({ success: false, message: errorMsg });
+            res.status(500).json({ success: false, message: 'AI failed to generate a response.' });
         }
     } catch (error) {
         console.error("AI Proxy Error:", error);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
+        res.status(500).json({ 
+            success: false, 
+            message: `Gemini Error: ${error.message || 'Internal Server Error'}` 
+        });
     }
 });
 
