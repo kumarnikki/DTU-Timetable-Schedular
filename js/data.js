@@ -49,8 +49,12 @@ const UNIVERSITY_INFO = {
         name: "Delhi Technological University (DTU)",
         formerly: "Delhi College of Engineering (DCE)",
         established: 1941,
-        status: "State University",
-        campus_size: "164 acres (Rohini Campus)",
+        status: "Delhi State University",
+        campus: {
+            main: "164 acres (Rohini Campus)",
+            east: "Vivek Vihar (USME)",
+            narela: "Planned Research Park"
+        },
         motto: "Knowledge is the ultimate truth",
         address: "Shahbad Daulatpur, Main Bawana Road, Delhi, 110042",
         contact: {
@@ -64,115 +68,159 @@ const UNIVERSITY_INFO = {
         metro: {
             closest: "Samaypur Badli (Yellow Line) - 2.5km",
             alternative: "Rithala (Red Line) - 4.5km",
-            tip: "Rickshaws from Samaypur Badli cost ₹10 (walk slightly out from gate)."
+            tip: "E-Rickshaws from Samaypur Badli cost ₹10 (sharing) or ₹40 (full). Walk out from Gate 2 for better rates."
         }
     },
-    placements_2024: [
-        { branch: "Computer Engineering (COE)", avg_ctc: "17.21 LPA", max_ctc: "85.30 LPA" },
-        { branch: "Software Engineering (SE)", avg_ctc: "21.54 LPA", max_ctc: "64.00 LPA" },
-        { branch: "Information Technology (IT)", avg_ctc: "16.23 LPA", max_ctc: "51.00 LPA" },
-        { branch: "Electronics & Communication (ECE)", avg_ctc: "16.61 LPA", max_ctc: "85.30 LPA" },
-        { branch: "Mechanical Engineering (MCE)", avg_ctc: "18.90 LPA", max_ctc: "85.30 LPA" },
-        { branch: "Electrical Engineering (EE)", avg_ctc: "12.47 LPA", max_ctc: "51.00 LPA" },
-        { branch: "Civil Engineering (CE)", avg_ctc: "8.58 LPA", max_ctc: "19.20 LPA" },
-        { branch: "Mechanical (ME)", avg_ctc: "9.58 LPA", max_ctc: "26.00 LPA" }
-    ],
+    admission_2024: {
+        exam: "JEE Main via JAC Delhi",
+        cutoffs_round_5: [
+            { branch: "CSE", delhi: 13567, outside: 6406 },
+            { branch: "IT", delhi: 17916, outside: 8500 },
+            { branch: "SE", delhi: 21614, outside: 10200 },
+            { branch: "MCE", delhi: 24053, outside: 11000 },
+            { branch: "ECE", delhi: 28173, outside: 15400 },
+            { branch: "EE", delhi: 37098, outside: 18900 },
+            { branch: "ME", delhi: 56014, outside: 22800 },
+            { branch: "CE", delhi: 71914, outside: 28180 },
+            { branch: "BT", delhi: 76007, outside: 26859 }
+        ],
+        tip: "Internal upgradation rounds can sometimes jump ranks by 5-10k in lower branches."
+    },
+    placements_2024_2025: {
+        stats_2024: [
+            { branch: "COE", avg: "17.21 LPA", max: "85.30 LPA", international: "1.8 Cr" },
+            { branch: "SE", avg: "21.54 LPA", max: "64.00 LPA" },
+            { branch: "IT", avg: "16.23 LPA", max: "51.00 LPA" },
+            { branch: "ECE", avg: "16.61 LPA", max: "85.30 LPA" },
+            { branch: "MCE", avg: "18.90 LPA", max: "85.30 LPA" },
+            { branch: "BT", avg: "10.25 LPA", max: "35.00 LPA" }
+        ],
+        trends_2025: "Heavy focus on AI/ML Engineer roles and Quant profiles in FinTech. Non-tech roles in HFTs offering 60LPA+."
+    },
     hostels: {
         boys: [
-            { id: "ABH", name: "Aryabhatta", capacity: 171, mess: "In-hostel", note: "Freshman hub." },
-            { id: "BCH", name: "Bhaskaracharya", capacity: 177, mess: "External (shared)", note: "Single/Double rooms." },
-            { id: "APJ", name: "Dr. APJ Abdul Kalam", capacity: 312, mess: "External", note: "Premium AC rooms (New)." },
-            { id: "HJB", name: "Homi Jahangir Bhabha", capacity: 163, mess: "In-hostel" },
-            { id: "CVR", name: "Sir C.V. Raman", capacity: 150, mess: "In-hostel" },
-            { id: "JCB", name: "Sir J.C. Bose", capacity: 140, mess: "In-hostel" },
-            { id: "VMH", name: "Varahamihira", capacity: 200, mess: "Shared" },
-            { id: "VVS", name: "Sir M. Visvesvaraya", capacity: 250, mess: "In-hostel" }
+            { id: "ABH", name: "Aryabhatta", capacity: 171, mess: "In-hostel", note: "First-year paradise." },
+            { id: "BCH", name: "Bhaskaracharya", capacity: 177, mess: "External" },
+            { id: "APJ", name: "APJ Abdul Kalam", capacity: 312, note: "Premium AC rooms.", fees: "₹72,000/yr" },
+            { id: "CVR", name: "C.V. Raman", capacity: 150 },
+            { id: "HJB", name: "Homi J. Bhabha", capacity: 163 }
         ],
         girls: [
-            { id: "KCH", name: "Kalpana Chawla", capacity: 39, mess: "External" },
-            { id: "SNH", name: "Sister Nivedita", capacity: 85, mess: "In-hostel" },
-            { id: "VLB", name: "Virangana Lakshmibai", capacity: 669, mess: "External", note: "Massive AC Hostel (Newest)." }
-        ]
+            { id: "VLB", name: "Virangana Lakshmibai", capacity: 669, note: "Newest AC hostel.", fees: "₹72,000/yr" },
+            { id: "KCH", name: "Kalpana Chawla", capacity: 39 },
+            { id: "SNH", name: "Sister Nivedita", capacity: 85 }
+        ],
+        hacks: "Apply early for AC hostels as they fill up within hours of the portal opening. Back gate entry is strictly monitored after 11 PM."
     },
     departments_and_labs: [
         { 
-            dept: "Computer Science", 
-            block: "Pragyan Bhawan Floor 1", 
-            labs: ["Operating Systems Lab", "Database Lab", "Computer Vision Lab", "Cyber Security Center"]
+            dept: "Computer Science (CSE/IT/SE)", 
+            labs: ["Operating Systems", "Database Management", "Computer Vision", "Cyber Security Center", "High-Performance Computing"]
         },
         { 
-            dept: "Applied Chemistry", 
-            block: "Science Block", 
-            labs: ["Polymer Synthesis", "Textile Technology", "Chemical Reaction Engg", "Instrumentation Lab"]
+            dept: "Electronics (ECE/EVDT)", 
+            labs: ["VLSI Design", "Microwave Engg", "Communication Systems", "Microprocessor Lab", "VDSemiX Center"]
         },
         { 
-            dept: "Mechanical Engineering", 
-            block: "Workshop Area", 
-            labs: ["Bio Diesel Lab", "Robotics & FMS", "CNC Lab", "Heat Transfer Lab", "Sand Testing"]
+            dept: "Mechanical & Production (ME/PIE/MAM)", 
+            labs: ["Auto/IC Engine", "Robotics & FMS", "CNC Lab", "Heat Transfer", "Sand Testing", "CAD/CAM Center"]
         },
         { 
-            dept: "Biotechnology", 
-            block: "Biotech Block", 
-            labs: ["Molecular Biology", "Cosmetic Engineering", "Bioprocess Lab", "Enzyme Technology"]
+            dept: "Civil Engineering (CE)", 
+            labs: ["Earthquake Technology", "Transportation Engg", "GIS & Remote Sensing", "Soil Mechanics", "Structures Lab"]
         },
         { 
-            dept: "Applied Physics", 
-            block: "Science Block", 
-            labs: ["Thin Films", "Fiber Optic Sensor Lab", "Optical Characterization"]
+            dept: "Biotechnology (BT)", 
+            labs: ["Molecular Biology", "Bioprocess Engg", "Stem Cell Research", "Nano-Bioelectronics", "Genome Informatics"]
+        },
+        { 
+            dept: "Applied Physics (EP)", 
+            labs: ["Thin Film & Material Science", "Fiber Optics", "Advanced Optics", "2DTU Lab", "Computational Physics"]
         }
-    ],
-    alumni: [
-        { name: "Vinod Dham", contribution: "Father of the Pentium Chip (Intel Inventor)" },
-        { name: "Vijay Shekhar Sharma", contribution: "Founder of Paytm" },
-        { name: "Sushant Singh Rajput", contribution: "Bollywood Actor (AIR-7 in Entrance)" },
-        { name: "Arvind Saxena", contribution: "Former Chairman of UPSC" },
-        { name: "Sanjay Gupta", contribution: "Country Manager, Google India" },
-        { name: "Manish Khera", contribution: "Founder & CEO, FINO Pay-tech" }
     ],
     societies: {
         technical: [
-            { name: "IEEE DTU", note: "Core electronics and CS society." },
-            { name: "ASME DTU", note: "Mechanical engineering excellence." },
-            { name: "UAS DTU", note: "Worldwide champions in Unmanned Aerial Systems (Drones)." },
-            { name: "Defianz Racing", note: "Formula Student team." }
+            { name: "IEEE DTU", focus: "Electronics/CS", note: "Organizes Troika (annual tech fest)." },
+            { name: "ASME DTU", focus: "Mechanical", note: "Top-tier robotics projects." },
+            { name: "SR-DTU", focus: "Robotics", note: "Builds world-class humanoid and service robots." },
+            { name: "IOSD DTU", focus: "Open Source", note: "Great for developers." },
+            { name: "UAS DTU", focus: "Drones", note: "Global champions in Unmanned Systems." },
+            { name: "Team Defianz Racing", focus: "Formula Student", note: "Builds F1-style race cars." },
+            { name: "Inferno DTU", focus: "Mars Rover", note: "International winners in Rover Challenge." },
+            { name: "DTU Solar Car", focus: "Clean Energy", note: "Built India's first solar passenger car." }
         ],
         cultural: [
-            { name: "Pratibimb", note: "The Dramatics/Theatre society." },
-            { name: "Madhurima", note: "The Music society (Classical & Western)." },
-            { name: "Vibe / DTU DanceSoc", note: "Western dance champions." },
-            { name: "Panache", note: "Fashion and design society." }
+            { name: "Pratibimb", note: "Dramatics society (Street and Stage)." },
+            { name: "Vibe / DanceSoc", note: "Multiple forms: western, classical, hip-hop." },
+            { name: "Madhurima", note: "The Music society (Vocals & Instrumental)." },
+            { name: "Kalakriti", note: "Fine arts, graffiti, and creative design." },
+            { name: "Panache", note: "Fashion and lifestyle." }
         ],
-        literary: ["Sahitya", "Yuvaan Literary Team", "Cognitive Minds", "Toastmasters"]
+        literary_finance: [
+            { name: "Yuvaan", note: "The official literary fest team." },
+            { name: "Sahitya", note: "Debating and book club." },
+            { name: "E-Cell DTU", note: "Startup incubation and entrepreneurship." },
+            { name: "Assets", note: "Stock market, finance, and trading fans." },
+            { name: "IFSA DTU", note: "Finance and consulting wing." },
+            { name: "Quiz Club", note: "Known as Delhi 42." }
+        ]
     },
-    events: {
-        cultural: { name: "Engifest", history: "Since 1974", scale: "100k+ attendees", stars: "Sunidhi Chauhan, Nucleya, Amit Trivedi" },
-        literary: { name: "Yuvaan", history: "Since 2017", scale: "North India's largest Lit-Fest", stars: "Durjoy Datta, Manisha Koirala" }
-    },
-    scholarships: [
-        "Merit-cum-Means (Tuition fee waiver based on income)",
-        "Post Matric (SC/ST/OBC students)",
-        "Narotam Sekhsaria (PG students)",
-        "Passi Family Scholarship",
-        "Suraaj & Prem Bhatia Scholarship"
-    ],
-    library: {
-        rules: "Books for 15 days. Limit: 3. Fine: ₹1/day.",
-        access: "24/7 Reading room access for students with valid ID cards.",
-        digital: "DTU Findit portal for e-books and journals."
-    },
-    canteens: [
-        { name: "Raj Soin", famous: "Chole Chawal (₹50)", tip: "Affordable and central." },
-        { name: "Yatai", famous: "Padak (Korean Fried Chicken)", tip: "Premium fusion taste." },
-        { name: "Mic Mac", famous: "Night Maggi", tip: "Late-night savior." },
-        { name: "Bistro", famous: "Patties & Cold Drinks", tip: "Quick break spot." }
+    senior_hacks: [
+        { spot: "MicMac Canteen", tip: "Get the 'Night Maggi' if you're studying late (open till 2 AM)." },
+        { spot: "Raj Soin Hall", tip: "Best Chole Chawal for ₹50. Central hub for socializing." },
+        { spot: "OAT (Open Air Theatre)", tip: "Best place to chill during winter afternoons. Great acoustics for practice." },
+        { spot: "Science Block Rooftop", tip: "Hidden spot with the best view of the entire 164-acre campus." },
+        { spot: "Back Gate Rickshaws", tip: "Walking to the main road saves you ₹10 compared to taking a rickshaw from inside." },
+        { spot: "Health Centre", tip: "Open 24/7. Keep your ID card handy for free basic medicines." }
     ],
     mess_timings: {
         breakfast: "7:30 AM - 9:00 AM",
         lunch: "12:30 PM - 2:15 PM",
         snacks: "4:45 PM - 6:00 PM",
         dinner: "7:30 PM - 9:15 PM"
+    },
+    electives_guide: {
+        high_scoring_gec_vac: [
+            { name: "Public Speaking", avg_gp: 9.76, dept: "Humanities", tip: "Super chill. Just give your speeches and don't miss labs. Guaranteed 10 CG if you're even slightly confident." },
+            { name: "Communicative Hindi", avg_gp: 9.5, dept: "Humanities", tip: "Best for those who know basic Hindi. Very little theory, mostly interactive." },
+            { name: "Extension Outreach Activities", avg_gp: 9.26, tip: "Great for social impact and easy GP. Usually involves a field visit/poster." },
+            { name: "Emotional Intelligence", avg_gp: 9.07, tip: "Theory based but very logical. Easy to score if you read the PPTs once." },
+            { name: "Logical Reasoning", avg_gp: 8.78, tip: "Practical and useful for CAT/Placements. Moderate effort needed." },
+            { name: "Innovation and Entrepreneurship", avg_gp: 8.92, tip: "Fun projects, great faculty usually." },
+            { name: "Art of Happy Living", avg_gp: 9.81, tip: "The ultimate legend elective. Pick it if you see it. It's essentially meditation and basic life stuff." }
+        ],
+        tough_ones: [
+            { name: "Deep Learning", avg_gp: 6.84, tip: "Pick ONLY if you are a math god or CSE/IT/SE student with projects. Grading is absolute." },
+            { name: "Distributed Systems", avg_gp: 7.12, tip: "High workload. Only for those serious about backend engineering." }
+        ],
+        new_courses: [
+            "VAC-Vivek Marg (Character Building)",
+            "AEC-Cyber Security (Essential for all)",
+            "GEC-Financial Literacy (Great for non-tech)"
+        ],
+        hacks: "AEC/VAC registration happens on a first-come, first-served basis on the portal. Be ready at 10:00 AM sharp on the date mentioned in the buzz section."
+    },
+    resource_map: {
+        fresources: "https://fresources.tech/",
+        branches: {
+            CSE: "fresources.tech/dtu/cse",
+            IT: "fresources.tech/dtu/it",
+            ECE: "fresources.tech/dtu/ece",
+            EE: "fresources.tech/dtu/ee",
+            MCE: "fresources.tech/dtu/mce"
+        },
+        organization: "Organized by Semester -> Branch -> Subject",
+        pro_tip: "Search for 'PYQs' in the branch folder. For Maths-II (AM102), the 'Faculty PPTs' on fresources are 90% syllabus. Don't buy expensive books."
+    },
+    latest_buzz: {
+        registration: "Even Semester (2025-26) Registration live from Dec 24 to Jan 5, 2026. Late fees apply after that.",
+        admissions: "Ph.D. Winter Jan 2026 session interviews starting Jan 12.",
+        scholarships: "Verification of NSP and MCM portal applications in progress at window 4, Admin block.",
+        news: "DTU Team Defianz has qualified for Formula Student UK 2026!",
+        official_portal: "https://result.dtu.ac.in/ (Check results for Odd Sem 2024-25 here)"
     }
 };
+
 
 const TIME_SLOTS = [
     '8-9', '9-10', '10-11', '11-12', '12-1', '1-2', '2-3', '3-4', '4-5', '5-6'
