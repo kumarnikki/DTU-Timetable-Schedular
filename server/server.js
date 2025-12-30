@@ -14,15 +14,15 @@ try {
     // If local config exists, use it as fallback or override
     config.EMAIL_USER = config.EMAIL_USER || localConfig.EMAIL_USER;
     config.EMAIL_PASS = config.EMAIL_PASS || localConfig.EMAIL_PASS;
-    console.log('Loaded local config.js');
 } catch (e) {
     // config.js not found (Expected in Production/Render)
-    console.log('config.js not found, using Environment Variables');
 }
 
-// DIAGNOSTIC LOG (Masked)
-console.log('EMAIL_USER check:', config.EMAIL_USER ? `Defined (${config.EMAIL_USER.substring(0, 3)}...)` : 'UNDEFINED');
-console.log('EMAIL_PASS check:', config.EMAIL_PASS ? 'Defined (*******)' : 'UNDEFINED');
+// FORCE LOGGING FOR DEPLOYMENT DEBUGGING
+console.log('--- SYSTEM STATUS ---');
+console.log('EMAIL_USER:', config.EMAIL_USER ? `${config.EMAIL_USER.substring(0,3)}... (OK)` : 'MISSING!');
+console.log('EMAIL_PASS:', config.EMAIL_PASS ? '******* (OK)' : 'MISSING!');
+console.log('---------------------');
 
 const app = express();
 // Render requires binding to process.env.PORT
@@ -32,26 +32,36 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// In-memory store for OTPs (For production, use Redis or Database)
-// Map: email -> { otp, timestamp }
+// In-memory store for OTPs
 const otpStore = new Map();
 
 // Email Transporter (Gmail)
-// More resilient configuration for cloud platforms
+// Trying Port 587 with requireTLS as Port 465 timed out
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false, // Must be false for 587
     auth: {
         user: config.EMAIL_USER,
         pass: config.EMAIL_PASS
     },
     tls: {
-        rejectUnauthorized: false // Helps if there are cert issues in the container
+        rejectUnauthorized: false
     },
-    connectionTimeout: 10000, // 10 seconds
-    greetingTimeout: 10000,
-    socketTimeout: 10000
+    connectionTimeout: 15000, 
+    greetingTimeout: 15000,
+    socketTimeout: 30000
+});
+
+// Diagnostic Endpoint - Check if server can talk to Google
+app.get('/api/test-connection', async (req, res) => {
+    try {
+        await transporter.verify();
+        res.json({ success: true, message: 'SMTP connection is healthy!' });
+    } catch (error) {
+        console.error('SMTP Verify Error:', error);
+        res.status(500).json({ success: false, message: error.message });
+    }
 });
 
 // 1. Send OTP Endpoint
@@ -96,11 +106,11 @@ app.post('/api/send-otp', async (req, res) => {
 
     try {
         await transporter.sendMail(mailOptions);
-        console.log(`OTP sent to ${email}: ${otp}`); // Log for debugging (remove in prod)
+        console.log(`OTP sent to ${email}`);
         res.json({ success: true, message: 'OTP sent successfully' });
     } catch (error) {
         console.error('Error sending email:', error);
-        res.status(500).json({ success: false, message: 'Failed to send OTP. Check server logs.' });
+        res.status(500).json({ success: false, message: 'Failed to send OTP.', error: error.message });
     }
 });
 
@@ -134,6 +144,7 @@ app.post('/api/verify-otp', (req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    console.log(`Email Service Configured with User: ${config.EMAIL_USER}`);
+    console.log(`--- Server Started ---`);
+    console.log(`Port: ${PORT}`);
+    console.log(`Time: ${new Date().toISOString()}`);
 });
