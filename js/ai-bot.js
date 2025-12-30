@@ -112,7 +112,7 @@ const AIBot = {
             if (data.success) {
                 AIBot.addMessage(data.response, 'bot');
             } else {
-                AIBot.addMessage("Sorry, I'm having trouble connecting to my brain. Is the server running?", 'bot');
+                AIBot.addMessage(data.message || "Sorry, I'm having trouble connecting to my brain. Is the server running?", 'bot');
             }
         } catch (error) {
             console.error("Chat Error:", error);
