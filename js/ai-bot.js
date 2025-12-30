@@ -115,14 +115,12 @@ const AIBot = {
                 AIBot.addMessage(data.message || "Sorry, I'm having trouble connecting to my brain. Is the server running?", 'bot');
             }
         } catch (error) {
-            console.error("Chat Error:", error);
+            console.error("AI Bot Network/Fetch Error:", error);
             if(document.getElementById('bot-loading')) document.getElementById('bot-loading').remove();
             
-            if (error.message.includes('Failed to fetch')) {
-                AIBot.addMessage("Connection Refused! Please make sure your server is running (run_backend.bat).", 'bot');
-            } else {
-                AIBot.addMessage("Opps! Something went wrong on my end. Check the console for details.", 'bot');
-            }
+            // Detailed message for user to report back
+            const detailedError = `Network Error: ${error.message}. Is the server URL correct? Check console (F12).`;
+            AIBot.addMessage(detailedError, 'bot');
         }
     }
 };
