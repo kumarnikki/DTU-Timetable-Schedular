@@ -41,7 +41,7 @@ Instructions:
 4. Use standard Indian English.`;
 
         // Direct REST API call to stable v1 endpoint
-        const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent?key=${API_KEY}`;
         
         const response = await fetch(apiUrl, {
             method: 'POST',
