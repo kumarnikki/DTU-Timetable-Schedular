@@ -90,7 +90,11 @@ const AIBot = {
             );
 
             // 2. Call Backend Proxy
-            const response = await fetch('/api/ai/chat', {
+            const API_BASE = window.location.hostname === 'localhost' || window.location.protocol === 'file:' 
+                ? 'http://localhost:3000' 
+                : '';
+
+            const response = await fetch(`${API_BASE}/api/ai/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 

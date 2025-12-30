@@ -20,7 +20,7 @@ app.post('/api/ai/chat', async (req, res) => {
         const { message, context } = req.body;
         const API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyCuqIVIIDckZqDAXaFQJ_zUTBuOrdvTjuY';
 
-        if (!API_KEY || API_KEY === 'AIzaSyCuqIVIIDckZqDAXaFQJ_zUTBuOrdvTjuY') {
+        if (!API_KEY || API_KEY === 'YOUR_API_KEY_HERE') {
             return res.status(500).json({ success: false, message: 'AI Service Not Configured. Please add GEMINI_API_KEY.' });
         }
 
