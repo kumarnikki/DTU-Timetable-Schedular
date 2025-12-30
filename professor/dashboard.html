@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Dashboard - DTU Scheduler</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../timetable.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Overlay -->
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar glass" id="sidebar">
+            <div class="logo" style="font-size: 1.5rem;">DTU Scheduler</div>
+            <div style="margin-bottom: 2rem;">
+                <div id="user-info" style="color: var(--text-muted); font-size: 0.9rem;"></div>
+            </div>
+            <nav>
+                <div class="nav-item active">
+                    <span>📅</span> My Classes
+                </div>
+            </nav>
+            <button onclick="Auth.logout()" class="btn-primary" style="margin-top: auto; background: rgba(239, 68, 68, 0.2); color: var(--danger);">Logout</button>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 id="page-title">My Schedule</h1>
+                <select id="day-filter" onchange="renderTimetable()" style="width: 200px;">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+            </header>
+
+            <div id="timetable-container">
+                <!-- Classes injected here -->
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        Auth.checkAuth();
+        const user = Auth.getCurrentUser();
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+        
+        document.getElementById('user-info').innerHTML = `
+            <strong>${user.name}</strong><br>
+            ${user.dept || 'Department'}<br>
+            Professor
+        `;
+
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const today = days[new Date().getDay()];
+        if (today !== 'Sunday' && today !== 'Saturday') {
+            document.getElementById('day-filter').value = today;
+        } else {
+            document.getElementById('day-filter').value = 'Monday';
+        }
+
+        function renderTimetable() {
+            const selectedDay = document.getElementById('day-filter').value;
+            const container = document.getElementById('timetable-container');
+            const db = DB.get();
+            
+            const myClasses = db.classes.filter(c => 
+                c.professor === user.name && 
+                c.day === selectedDay
+            );
+            
+            let html = '';
+            const currentHour = new Date().getHours();
+            
+            // Re-use logic from student dashboard for consistency
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const currentDayName = days[new Date().getDay()];
+            const isToday = (selectedDay === currentDayName);
+
+            TIME_SLOTS.forEach(slot => {
+                const classData = myClasses.find(c => c.time === slot);
+
+                // Time Parsing
+                let startHour = 8;
+                const firstPart = parseInt(slot.split('-')[0]);
+                if (firstPart >= 8 && firstPart <= 11) {
+                    startHour = firstPart;
+                } else if (firstPart === 12) {
+                    startHour = 12;
+                } else if (firstPart >= 1 && firstPart <= 6) {
+                    startHour = firstPart + 12;
+                }
+                const endHour = startHour + 1;
+
+                // Status Logic
+                let timeStatus = 'upcoming'; 
+                let cardStyle = '';
+                let statusBadge = '';
+
+                if (isToday) {
+                    if (currentHour >= endHour) {
+                        timeStatus = 'over';
+                        cardStyle = 'background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--danger); opacity: 0.7;';
+                        statusBadge = '<span class="status-badge" style="background: var(--danger); color: white;">Over</span>';
+                    } else if (currentHour >= startHour && currentHour < endHour) {
+                        timeStatus = 'now';
+                        cardStyle = 'border: 2px solid var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); transform: scale(1.02); z-index: 10;';
+                        statusBadge = '<span class="status-badge" style="background: rgba(34, 197, 94, 0.2); color: var(--success);">Happening Now</span>';
+                    }
+                }
+
+                if (classData) {
+                    html += `
+                    <div class="class-card glass" style="--var-color: var(--secondary); ${cardStyle}">
+                        <div>
+                            <h3 style="margin-bottom: 0.25rem;">${classData.subject} (${classData.branch} - ${classData.section})</h3>
+                            <div style="color: var(--text-muted); font-size: 0.9rem;">
+                                <span>🕒 ${classData.time}</span>
+                                <span style="margin-left: 1rem;">📍 ${classData.venue}</span>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                            ${timeStatus === 'over' ? statusBadge : 
+                                (classData.status === 'cancelled' ? 
+                                    '<span class="status-badge status-cancelled">Cancelled</span>' : 
+                                    (timeStatus === 'now' ? statusBadge : 
+                                        `<span class="status-badge status-upcoming">${(classData.status || 'Upcoming').charAt(0).toUpperCase() + (classData.status || 'upcoming').slice(1)}</span>`
+                                    )
+                                )
+                            }
+                            ${classData.status !== 'cancelled' && timeStatus !== 'over' ? 
+                                `<button onclick="cancelClass(${classData.id})" style="padding: 5px 10px; font-size:0.8rem; background: var(--danger); border:none; cursor:pointer; border-radius:4px; color:white;">Cancel Class</button>` 
+                                : ''
+                            }
+                            ${classData.status === 'cancelled' && timeStatus !== 'over' ? 
+                                `<button onclick="uncancelClass(${classData.id})" style="padding: 5px 10px; font-size:0.8rem; background: var(--success); border:none; cursor:pointer; border-radius:4px; color:white;">Restore</button>`
+                                : ''
+                            }
+                        </div>
+                    </div>`;
+                } else {
+                     // Empty Slot
+                     // Apply status styles to empty slots too if needed (optional, but consistent)
+                     // Usually empty slots just stay empty/dim
+                     
+                     html += `
+                    <div class="class-card glass" style="background: rgba(255, 255, 255, 0.02); border-left: 4px solid var(--text-muted); opacity: ${timeStatus === 'over' ? '0.4' : '0.5'};">
+                        <div>
+                            <h3 style="margin-bottom: 0.25rem; color: var(--text-muted);">Free Slot</h3>
+                            <div style="color: var(--text-muted); font-size: 0.9rem;">
+                                <span>🕒 ${slot}</span>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function cancelClass(classId) {
+            if(!confirm('Are you sure you want to cancel this class?')) return;
+            const db = DB.get();
+            const classIdx = db.classes.findIndex(c => c.id === classId);
+            if(classIdx > -1) {
+                db.classes[classIdx].status = 'cancelled';
+                DB.update(db);
+                renderTimetable();
+            }
+        }
+
+        function uncancelClass(classId) {
+            const db = DB.get();
+            const classIdx = db.classes.findIndex(c => c.id === classId);
+            if(classIdx > -1) {
+                db.classes[classIdx].status = 'upcoming';
+                DB.update(db);
+                renderTimetable();
+            }
+        }
+
+        renderTimetable();
+    </script>
+</body>
+</html>

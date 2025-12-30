@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - DTU Scheduler</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../timetable.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Overlay -->
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar glass" id="sidebar">
+            <div class="logo" style="font-size: 1.5rem;">DTU Scheduler</div>
+            <div style="margin-bottom: 2rem;">
+                <div id="user-info" style="color: var(--text-muted); font-size: 0.9rem;"></div>
+            </div>
+            <nav>
+                <div class="nav-item active" onclick="switchView('timetable')" id="nav-timetable">
+                    <span>📅</span> My Timetable
+                </div>
+                <div class="nav-item" onclick="switchView('profile')" id="nav-profile">
+                    <span>👤</span> My Profile
+                </div>
+                <div class="nav-item" onclick="alert('Feature coming soon')">
+                    <span>📝</span> Exams (Soon)
+                </div>
+            </nav>
+            <button onclick="Auth.logout()" class="btn-primary" style="margin-top: auto; background: rgba(239, 68, 68, 0.2); color: var(--danger);">Logout</button>
+        </aside>
+
+
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 id="page-title">Today's Schedule</h1>
+                <select id="day-filter" onchange="renderTimetable()" style="width: 200px;">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+            </header>
+
+            <div id="timetable-container">
+                <!-- Classes injected here -->
+            </div>
+
+            <!-- Profile Container -->
+            <div id="profile-container" class="hidden">
+                <div class="card glass">
+                    <h2 style="margin-bottom: 1.5rem;">Edit Profile</h2>
+                    <form onsubmit="handleProfileUpdate(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="p-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Roll Number</label>
+                            <input type="text" id="p-rollNo" name="rollNo" required>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Semester</label>
+                                <select id="p-semester" name="semester" required>
+                                    <option value="1">1</option><option value="2">2</option>
+                                    <option value="3">3</option><option value="4">4</option>
+                                    <option value="5">5</option><option value="6">6</option>
+                                    <option value="7">7</option><option value="8">8</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Section</label>
+                                <input type="text" id="p-section" name="section" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label>Branch (Code)</label>
+                            <input type="text" id="p-branch" name="branch" readonly style="opacity:0.7; cursor:not-allowed;">
+                            <small style="color:var(--text-muted)">Branch cannot be changed directly.</small>
+                        </div>
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        Auth.checkAuth();
+        const user = Auth.getCurrentUser();
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+        
+        // Display User Info
+        document.getElementById('user-info').innerHTML = `
+            <strong>${user.name}</strong><br>
+            ${user.branch} - ${user.section} (Sem ${user.semester})<br>
+            ${user.rollNo || user.id}
+        `;
+
+        // Set current day
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const today = days[new Date().getDay()];
+        if (today !== 'Sunday' && today !== 'Saturday') {
+            document.getElementById('day-filter').value = today;
+        } else {
+            document.getElementById('day-filter').value = 'Monday';
+        }
+
+        function renderTimetable() {
+            try {
+                const selectedDay = document.getElementById('day-filter').value;
+                const container = document.getElementById('timetable-container');
+                const db = DB.get();
+                
+                // 1. Safety Check
+                if (!db || !db.classes) {
+                    container.innerHTML = '<div class="card glass">Loading data...</div>';
+                    return;
+                }
+
+                // 2. Local Definition to prevent scope issues
+                const ALL_SLOTS = ['8-9', '9-10', '10-11', '11-12', '12-1', '1-2', '2-3', '3-4', '4-5', '5-6'];
+
+                const myClasses = db.classes.filter(c => 
+                    c.branch === user.branch && 
+                    c.section === user.section && 
+                    c.semester == user.semester && 
+                    c.day === selectedDay
+                );
+
+                document.getElementById('page-title').textContent = `${selectedDay}'s Schedule`;
+                
+                let html = '';
+                const currentHour = new Date().getHours();
+                
+                ALL_SLOTS.forEach(slot => {
+                    const classData = myClasses.find(c => c.time === slot);
+                    
+                    // Robust Time Parsing
+                    let startHour = 8;
+                    const firstPart = parseInt(slot.split('-')[0]);
+                    
+                    if (firstPart >= 8 && firstPart <= 11) {
+                        startHour = firstPart;     // 8, 9, 10, 11 AM
+                    } else if (firstPart === 12) {
+                        startHour = 12;            // 12 PM
+                    } else if (firstPart >= 1 && firstPart <= 6) {
+                        startHour = firstPart + 12; // 1, 2, 3 PM -> 13, 14, 15...
+                    }
+
+                    const endHour = startHour + 1;
+                    
+                // Status Logic
+                let timeStatus = 'upcoming'; 
+                let cardStyle = '';
+                let statusBadge = '';
+                
+                // Only apply real-time status if we are viewing TODAY's schedule
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const currentDayName = days[new Date().getDay()];
+                const isToday = (selectedDay === currentDayName);
+
+                if (isToday) {
+                    if (currentHour >= endHour) {
+                        timeStatus = 'over';
+                        // Intensified Red for "Over"
+                        cardStyle = 'background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--danger); opacity: 0.7;';
+                        statusBadge = '<span class="status-badge" style="background: var(--danger); color: white;">Over</span>';
+                    } else if (currentHour >= startHour && currentHour < endHour) {
+                        timeStatus = 'now';
+                        cardStyle = 'border: 2px solid var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); transform: scale(1.02); z-index: 10;';
+                        statusBadge = '<span class="status-badge" style="background: rgba(34, 197, 94, 0.2); color: var(--success);">Happening Now</span>';
+                    }
+                }
+                
+                // If not today, defaults to 'upcoming' (and no special style) unless specific logic needed
+                // Optionally: could check if day is past (e.g. yesterday) -> make all over. 
+                // For simplicity/safety: Future/Past days just show standard list or "Upcoming".
+                // User complaint was specifically about "Over" showing on Tuesday (future).
+                
+                if (classData) {
+                        // Google Calendar Link Generation
+                        // Need a valid date for GCal. We'll use the "next occurrence" of this day.
+                        const gCalUrl = generateGCalUrl(classData.subject, selectedDay, startHour, endHour, classData.venue);
+                        const addToCalBtn = timeStatus === 'upcoming' ? 
+                            `<a href="${gCalUrl}" target="_blank" style="margin-top:0.5rem; display:inline-block; font-size:0.8rem; color:var(--primary); text-decoration:none;">📅 Add to Google Calendar</a>` : '';
+
+                        // RENDER CLASS
+                        html += `
+                        <div class="class-card glass" style="--var-color: ${getColorForSubject(classData.subject)}; ${cardStyle}">
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">${classData.subject}</h3>
+                                <div style="color: var(--text-muted); font-size: 0.9rem;">
+                                    <span>🕒 ${classData.time}</span>
+                                    <span style="margin-left: 1rem;">📍 ${classData.venue}</span>
+                                    <span style="margin-left: 1rem;">👨‍🏫 ${classData.professor}</span>
+                                </div>
+                                ${addToCalBtn}
+                            </div>
+                            <div>
+                                ${timeStatus === 'over' ? statusBadge : 
+                                  (classData.status === 'cancelled' ? '<span class="status-badge status-cancelled">Cancelled</span>' : 
+                                   (timeStatus === 'now' ? statusBadge : '<span class="status-badge status-upcoming">Upcoming</span>'))
+                                }
+                            </div>
+                        </div>`;
+                    } else {
+                        // RENDER GAP
+                        let breakType = "Free Slot";
+                        let icon = "☕";
+                        
+                        if (slot === '12-1' || slot === '1-2') {
+                            breakType = "Lunch / Break";
+                            icon = "🍔";
+                        }
+
+                        // Status badge for breaks
+                        let breakBadge = '';
+                        if(timeStatus === 'over') {
+                            breakBadge = '<span class="status-badge" style="background: var(--danger); color: white; margin-left: auto;">Over</span>';
+                        } else if(timeStatus === 'now') {
+                             breakBadge = '<span class="status-badge" style="background: rgba(34, 197, 94, 0.2); color: var(--success); margin-left: auto;">Now</span>';
+                        }
+
+                        html += `
+                        <div class="class-card glass" style="background: rgba(255, 255, 255, 0.02); border-left: 4px solid var(--text-muted); opacity: ${timeStatus === 'over' ? '0.4' : '0.8'}; ${cardStyle} display: flex; align-items: center;">
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem; color: var(--text-muted);">${breakType}</h3>
+                                <div style="color: var(--text-muted); font-size: 0.9rem;">
+                                    <span>🕒 ${slot}</span>
+                                    <span style="margin-left: 1rem;">${icon} Relax</span>
+                                </div>
+                            </div>
+                            ${breakBadge}
+                        </div>`;
+                    }
+                });
+
+                container.innerHTML = html;
+            } catch (e) {
+                console.error('Render Error:', e);
+                document.getElementById('timetable-container').innerHTML = `<div class="card glass" style="color: var(--danger)">System Error: ${e.message}</div>`;
+            }
+        }
+
+        // View Switcher
+        function switchView(viewName) {
+            if(viewName === 'timetable') {
+                document.getElementById('timetable-container').classList.remove('hidden');
+                document.getElementById('profile-container').classList.add('hidden');
+                document.getElementById('nav-timetable').classList.add('active');
+                document.getElementById('nav-profile').classList.remove('active');
+                document.getElementById('page-title').textContent = "Today's Schedule";
+                document.getElementById('day-filter').classList.remove('hidden');
+            } else {
+                document.getElementById('timetable-container').classList.add('hidden');
+                document.getElementById('profile-container').classList.remove('hidden');
+                document.getElementById('nav-timetable').classList.remove('active');
+                document.getElementById('nav-profile').classList.add('active');
+                document.getElementById('page-title').textContent = "My Profile";
+                document.getElementById('day-filter').classList.add('hidden');
+                loadProfile();
+            }
+        }
+
+        function loadProfile() {
+            const u = Auth.getCurrentUser();
+            document.getElementById('p-name').value = u.name || '';
+            document.getElementById('p-rollNo').value = u.rollNo || u.id || '';
+            document.getElementById('p-semester').value = u.semester || '';
+            document.getElementById('p-section').value = u.section || '';
+            document.getElementById('p-branch').value = u.branch || ''; // Readonly
+        }
+
+        function handleProfileUpdate(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const updates = Object.fromEntries(formData.entries());
+            
+            const result = Auth.updateProfile(updates);
+            if(result.success) {
+                alert("Profile Updated Successfully!");
+                // Refresh Page to reflect changes in Header/Timetable
+                location.reload(); 
+            } else {
+                alert(result.message);
+            }
+        }
+
+        // Helper to generate Google Calendar Link
+        function generateGCalUrl(title, dayName, startHour, endHour, venue) {
+            // Find next date for this dayName
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const targetDay = days.indexOf(dayName);
+            const today = new Date();
+            let diff = targetDay - today.getDay();
+            if (diff < 0) diff += 7; // Next week if passed
+            if (diff === 0 && today.getHours() > endHour) diff += 7; // Next week if today but passed
+
+            const nextDate = new Date(today);
+            nextDate.setDate(today.getDate() + diff);
+
+            // Format dates as YYYYMMDDTHHmmSSZ (UTC) or simpler local string YYYYMMDDTHHmm00
+            // We'll use simple string format YYYYMMDDTHHmm00
+            const pad = (n) => n.toString().padStart(2, '0');
+            const dateStr = nextDate.getFullYear() + pad(nextDate.getMonth() + 1) + pad(nextDate.getDate());
+            
+            const startStr = dateStr + 'T' + pad(startHour) + '0000';
+            const endStr = dateStr + 'T' + pad(endHour) + '0000';
+
+            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startStr}/${endStr}&details=${encodeURIComponent('Class at ' + venue)}&location=${encodeURIComponent(venue)}`;
+        }
+
+        function getColorForSubject(subject) {
+            // Consistent random color
+            const colors = ['#6366f1', '#ec4899', '#22c55e', '#eab308', '#3b82f6'];
+            let hash = 0;
+            for (let i = 0; i < subject.length; i++) {
+                hash = subject.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // Initial Render
+        renderTimetable();
+
+    </script>
+</body>
+</html>

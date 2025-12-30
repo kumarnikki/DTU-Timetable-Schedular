@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden Dashboard - DTU Scheduler</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="../timetable.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Overlay -->
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+        <aside class="sidebar glass" id="sidebar">
+            <div class="logo" style="font-size: 1.5rem;">DTU Scheduler</div>
+            <div style="margin-bottom: 2rem;">
+                <div id="user-info" style="color: var(--text-muted); font-size: 0.9rem;"></div>
+            </div>
+            <nav>
+                <div class="nav-item active">
+                    <span>🏠</span> Hostel/Mess Management
+                </div>
+            </nav>
+            <button onclick="Auth.logout()" class="btn-primary" style="margin-top: auto; background: rgba(239, 68, 68, 0.2); color: var(--danger);">Logout</button>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 id="page-title">Warden Dashboard</h1>
+            </header>
+
+            <div class="card glass">
+                <h2>Welcome, Warden</h2>
+                <p style="color: var(--text-muted); margin-top: 1rem;">
+                    This is the warden panel. Features for hostel and mess management will be appeared here.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        Auth.checkAuth();
+        const user = Auth.getCurrentUser();
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+
+        document.getElementById('user-info').innerHTML = `
+            <strong>${user.email}</strong><br>
+            ${user.role === 'warden_hostel' ? 'Hostel Warden' : 'Mess Warden'}
+        `;
+    </script>
+</body>
+</html>
