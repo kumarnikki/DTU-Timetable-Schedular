@@ -54,8 +54,14 @@ Instructions:
             const aiResponse = data.candidates[0].content.parts[0].text;
             res.json({ success: true, response: aiResponse });
         } else {
-            console.error("Gemini Error:", data);
-            res.status(500).json({ success: false, message: 'AI failed to respond.' });
+            console.error("Gemini API Error Detail:", JSON.stringify(data, null, 2));
+            let errorMsg = 'AI failed to respond.';
+            if (data.error && data.error.message) {
+                errorMsg = `Gemini Error: ${data.error.message}`;
+            } else if (data.promptFeedback && data.promptFeedback.blockReason) {
+                errorMsg = `Gemini Blocked: ${data.promptFeedback.blockReason}`;
+            }
+            res.status(500).json({ success: false, message: errorMsg });
         }
     } catch (error) {
         console.error("AI Proxy Error:", error);
