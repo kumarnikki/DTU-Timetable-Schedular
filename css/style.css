@@ -284,6 +284,12 @@ button.btn-primary:active {
   cursor: pointer;
   padding: 0.5rem;
   z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.menu-toggle:active {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.95);
 }
 
 /* Global Overlay Styles */
@@ -310,25 +316,27 @@ button.btn-primary:active {
 
   .main-content {
     padding: 1.25rem;
-    margin-top: 70px; /* Space for sticky header */
+    margin-top: 110px; /* Increased space for two-line fixed header */
   }
 
   .main-content header {
+    display: flex;
     flex-direction: column;
     align-items: center; 
-    text-align: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 800;
-    background: rgba(15, 23, 42, 0.8) !important; 
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 1rem;
+    background: rgba(15, 23, 42, 0.9) !important; 
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
     margin: 0;
     width: 100%;
+    min-height: 60px;
+    justify-content: center;
   }
 
   .main-content header h1 {
@@ -346,12 +354,13 @@ button.btn-primary:active {
   .menu-toggle {
     display: block;
     position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.05);
+    left: 0.75rem;
+    top: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 1.25rem;
+    z-index: 850;
   }
 
   .sidebar {
