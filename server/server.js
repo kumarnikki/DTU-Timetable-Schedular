@@ -40,8 +40,8 @@ Instructions:
 3. Be concise and professional.
 4. Use standard Indian English.`;
 
-        // Direct REST API call to stable v1 endpoint
-        const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent?key=${API_KEY}`;
+        // Direct REST API call to v1beta endpoint (v1 doesn't support generative models yet)
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
         
         const response = await fetch(apiUrl, {
             method: 'POST',
