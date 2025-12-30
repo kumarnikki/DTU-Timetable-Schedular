@@ -17,25 +17,27 @@ app.use(bodyParser.json());
 // Health & Diagnostic Check
 app.get('/api/ai/health', async (req, res) => {
     try {
-        const API_KEY = process.env.GEMINI_API_KEY;
+        const API_KEY = process.env.OPENROUTER_API_KEY;
         if (!API_KEY) {
-            return res.json({ success: false, message: 'Missing API Key in Environment' });
+            return res.json({ success: false, message: 'Missing OPENROUTER_API_KEY in Environment' });
         }
 
-        // Fetch list of models from Google to see what's actually available
-        const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${API_KEY}`;
-        const response = await fetch(listUrl);
+        // Fetch list of models from OpenRouter to verify key
+        const listUrl = `https://openrouter.ai/api/v1/models`;
+        const response = await fetch(listUrl, {
+            headers: { 'Authorization': `Bearer ${API_KEY}` }
+        });
         const data = await response.json();
 
         res.json({ 
             success: true, 
-            message: 'AI Proxy is active.',
+            message: 'OpenRouter Proxy is active.',
             diagnostics: {
                 hasKey: true,
                 nodeVersion: process.version,
-                googleResponse: response.ok ? 'Authorized' : 'Unauthorized',
-                availableModels: data.models ? data.models.map(m => m.name.replace('models/', '')) : 'Unable to list models',
-                rawError: response.ok ? null : data
+                openRouterResponse: response.ok ? 'Authorized' : 'Unauthorized',
+                availableModelsCount: data.data ? data.data.length : 'Unable to list models',
+                deepseekAvailable: data.data ? data.data.some(m => m.id.includes('deepseek')) : false
             }
         });
     } catch (error) {
@@ -47,49 +49,47 @@ app.get('/api/ai/health', async (req, res) => {
 app.post('/api/ai/chat', async (req, res) => {
     try {
         const { message, context, history } = req.body;
-        const API_KEY = process.env.GEMINI_API_KEY;
+        const API_KEY = process.env.OPENROUTER_API_KEY;
 
         if (!API_KEY) {
-            return res.status(500).json({ success: false, message: 'AI Error: GEMINI_API_KEY is missing from Render environment variables.' });
+            return res.status(500).json({ success: false, message: 'AI Error: OPENROUTER_API_KEY is missing from .env' });
         }
 
-        // --- GIGA-BRAIN SYSTEM PROMPT (Logic Density: Ultra) ---
-        const systemPrompt = `You are the "DTU Giga-Brain", an ultra-high-intelligence academic authority and legendary senior mentor at Delhi Technological University. 
+        // --- GIGA-BRAIN SYSTEM PROMPT (Logic Density: Ultra-V3.2) ---
+        const systemPrompt = `You are the "DTU Giga-Brain", an ultra-high-intelligence academic authority and legendary senior mentor at Delhi Technological University. You are powered by DeepSeek R1 Chimera reasoning.
 
-## LOGICAL OPERATING SYSTEM (Giga-OS)60: 1. **Chain-of-Thought (CoT) + Proactive Strategy**: For every query, internalize this 5-step reasoning path:
-   - **Intent Focus**: Detect if user needs Admission data, Career/Placement advice, Campus Navigation, Elective choices, Study Resources, or Schedule management.
-   - **Cross-Referencing**: Connect the user's branch (${context.userInfo.branch}) to specialized Labs, Tech Teams, and relevant Startups in the knowledge base.
-   - **Giga-Extraction**: Pull from "Senior Hacks", "Electives Guide", or "Resource Map" clusters.
-   - **Proactive Prediction**: Anticipate the next friction point. If they ask about a lab, tell them the venue AND how to get the lab manual. If asking about an elective, warn them about registration timing.
-   - **Constraint Check**: Ensure tone is authoritative yet approachable. NO triple asterisks. Use **bold**.
- 
- 2. **BREVITY & IMPACT**: 
-    - Initial Greetings: Warm, senior-like, under 15 words. Keep it sharp.
-    - Use bullet points for structured data (e.g., GP stats).
- 
- 3. **EXPERT DOMAINS**:
-    - **Electives**: Suggest high-scoring AEC/VAC/GEC based on GP stats in data.js.
-    - **Resources**: Direct students to specific fresources.tech branch paths (e.g., /dtu/cse).
-    - **Admissions**: Use JAC Delhi 2024 Round 5 cutoffs for precision advice.
-    - **Placements**: Quote 2024-25 trends (FinTech, AI roles).
-    - **Navigation**: Provide Google Maps URLs for any landmark mentioned.
- 
- 4. **INVERSE PROMPTING (Interactive Loop)**:
-    - Mandate: You MUST end every response with a hidden [SUGGESTED_PROMPTS] block.
-    - Strategy: These questions should bridge the gap to the next logical step (Inverse Prompting). 
-    - Format: [SUGGESTED_PROMPTS: "Question 1", "Question 2", "Question 3"]
- 
- ## CONTEXTUAL CLUSTERS:
- - **User**: ${context.userInfo.name} | ${context.userInfo.branch} | Sem ${context.userInfo.semester}
- - **Environment**: ${context.currentTime} | ${context.dayOfWeek}
- - **Knowledge Base**: ${JSON.stringify(context.universityInfo, null, 1)}
- - **Personal Schedule**: ${JSON.stringify(context.timetable, null, 1)}
- 
- ## RESPONSE ARCHITECTURE:
- - **Direct Intel**: The primary fact.
- - **Senior Hack**: A tactical pro-tip (The "Phase 3" intelligence).
- - **Actionable Link/Maps**: fresources.tech, portal links, or maps.
- - **Suggested Prompts**: 3 chips to guide the user further.`;
+## LOGICAL OPERATING SYSTEM (Giga-OS v3.2)
+1. **Chain-of-Thought (CoT) + Multi-Stage Reasoning**:
+   - **Intent Focus**: Detect core needs (Admissions, Academics, Placements, Campus Life, Research).
+   - **Cross-Referencing**: Map the user's context (${context.userInfo.branch}, Sem ${context.userInfo.semester}) to the massive university knowledge base.
+   - **Giga-Extraction**: Mine "Senior Hacks", "Research Centers", "Faculty Hall of Fame", and "Electives Guide" clusters for gold-standard intel.
+   - **Resource Mapping**: ALWAYS link 'fresources.tech' for study material queries. Use the specific branch/sem links from 'resource_map'.
+   - **Elective Advisory**: Use 'electives_guide' to recommend courses based on 'High Scoring' vs 'Utility'. Quote the "Tip" field.
+   - **Proactive Anticipation**: You don't just answer; you mentor. If asking about a lab, mention the best Xerox shop for manuals. If asking about a tech team, mention upcoming fests.
+   - **Constraint Check**: Bold key terms. No triple asterisks. Tone: Sharp, authoritative, yet supportive.
+
+2. **REASONING LAYERS**:
+   - **Tactical**: Immediate answer to the user query.
+   - **Strategic**: How this fits into their 4-year journey (CGPA hacks, internships).
+   - **Philosophical**: Encouraging the "DTU Spirit" (Innovation, Resilience, Community).
+
+3. **INVERSE PROMPTING (Mandatory)**: 
+   - Every response MUST end with a hidden [SUGGESTED_PROMPTS] block.
+   - These must be the 3 most logical follow-ups that lead the user deeper into academic success.
+   - Format: [SUGGESTED_PROMPTS: "Question 1", "Question 2", "Question 3"]
+   - CRITICAL: Keep it on a single line. Do not use newlines inside the brackets.
+
+## CONTEXTUAL CLUSTERS:
+- **User Profile**: ${context.userInfo.name} | ${context.userInfo.branch} | Sem ${context.userInfo.semester}
+- **Real-time**: ${context.currentTime} | ${context.dayOfWeek}
+- **Knowledge Base**: ${JSON.stringify(context.universityInfo, null, 1)}
+- **Personal Schedule**: ${JSON.stringify(context.timetable, null, 1)}
+
+## RESPONSE ARCHITECTURE:
+- **Direct Intel**: Definitive answer first.
+- **Senior Hack**: A Phase 3 tactical pro-tip or hidden campus secret.
+- **Actionable Link/Maps**: fresources.tech, official portals, or Google Maps URLs.
+- **Suggested Prompts**: 3 chips to sustain the intelligence loop.`;
 
 
         // --- CONSTRUCT FULL CONVERSATION CONTENTS ---
@@ -109,29 +109,43 @@ app.post('/api/ai/chat', async (req, res) => {
             parts: [{ text: currentMessageText }]
         });
 
-        // --- CALL GEMINI ---
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
+        // --- CALL OPENROUTER (DeepSeek R1 Chimera) ---
+        const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
         
-        console.log(`--- [SUPER AI] Request ---`);
+        console.log(`--- [GIGA-BRAIN R1] Request (OpenRouter) ---`);
         const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents })
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`,
+                'HTTP-Referer': 'https://dtu-timetable.onrender.com', // Optional but good for OpenRouter
+                'X-Title': 'DTU Giga-Brain Bot'
+            },
+            body: JSON.stringify({ 
+                model: "tngtech/deepseek-r1t2-chimera:free",
+                messages: [
+                    ... (history || []).map(h => ({ 
+                        role: h.role === "model" ? "assistant" : "user", 
+                        content: h.parts[0].text 
+                    })),
+                    { role: "user", content: `[SYSTEM CONTEXT: ${systemPrompt}]\n\nUSER MESSAGE: ${message}` }
+                ]
+            })
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                return res.json({ success: true, response: data.candidates[0].content.parts[0].text });
+            if (data.choices && data.choices[0]?.message?.content) {
+                return res.json({ success: true, response: data.choices[0].message.content });
             }
-            console.error("Super AI Response Struct Error:", JSON.stringify(data));
-            return res.status(500).json({ success: false, message: 'Super AI returned an unreadable response.' });
+            console.error("OpenRouter Response Struct Error:", JSON.stringify(data));
+            return res.status(500).json({ success: false, message: 'Giga-Brain R1 returned an unreadable response.' });
         } else {
-            console.error("Google API Error:", JSON.stringify(data));
-            const detail = data.error?.message || 'Unknown API Error';
-            let userMessage = `Super AI Error (${response.status}): ${detail}`;
-            if (response.status === 429) userMessage += " | TIP: Free Tier quota hit. Wait 60s.";
+            console.error("OpenRouter API Error:", JSON.stringify(data));
+            const detail = data.error?.message || 'Unknown Provider Error';
+            let userMessage = `Giga-Brain R1 Error (${response.status}): ${detail}`;
+            if (response.status === 429) userMessage += " | TIP: OpenRouter free tier limit hit.";
             return res.status(response.status).json({ success: false, message: userMessage });
         }
 

@@ -63,7 +63,8 @@ const UNIVERSITY_INFO = {
             security: "Available 24/7 (Main Gate & Back Gate)",
             admission: "011-27871022",
             medical: "DTU Health Centre (Open 24/7 for emergencies)",
-            library: "011-27871018 Ext 1111"
+            library: "011-27871018 Ext 1111",
+            xerox: "Available at MicMac, Nescii, and Science Block (Late night at MicMac)"
         },
         metro: {
             closest: "Samaypur Badli (Yellow Line) - 2.5km",
@@ -138,6 +139,19 @@ const UNIVERSITY_INFO = {
             labs: ["Thin Film & Material Science", "Fiber Optics", "Advanced Optics", "2DTU Lab", "Computational Physics"]
         }
     ],
+    faculty_hall_of_fame: [
+        { name: "Dr. Indu Mehrotra", dept: "Chemistry", review: "The 'Grandmother of DTU'. Strict but life-changing advice. Don't be late." },
+        { name: "Dr. Ruchika Malik", dept: "CSE/Maths", review: "Best for Linear Algebra. Her notes are gold for GATE/CAT." },
+        { name: "Dr. Rajeev Kumar", dept: "CSE", review: "Legendary methodology. If you survive his class, you can survive Google interviews." },
+        { name: "Dr. S. Indu", dept: "ECE", review: "Head of Computer Vision center. The go-to mentor for AI research papers." },
+        { name: "Mr. Manoj Kumar", dept: "Humanities", review: "Public Speaking god. His assignments forces you to break out of your shell." }
+    ],
+    research_centers: [
+        { name: "2DTU", focus: "Photonics & Fiber Optics", note: "Highly cited research papers globally." },
+        { name: "Center for Excellence in AI", focus: "ML/Deep Learning", note: "Equipped with NVIDIA DGX systems." },
+        { name: "Nanotechnology Lab", focus: "Material Science", note: "Advanced scanning electron microscopes." },
+        { name: "USME Innovation Hub", focus: "FinTech & Management", note: "Located at East Campus." }
+    ],
     societies: {
         technical: [
             { name: "IEEE DTU", focus: "Electronics/CS", note: "Organizes Troika (annual tech fest)." },
@@ -165,14 +179,36 @@ const UNIVERSITY_INFO = {
             { name: "Quiz Club", note: "Known as Delhi 42." }
         ]
     },
+    sports_and_fitness: {
+        facilities: [
+            { name: "Gym", note: "Separate sections for Boys and Girls. High-end equipment." },
+            { name: "Sports Stadium", note: "Olympic-sized track and football field." },
+            { name: "Indoor Courts", note: "Badminton, Table Tennis, and Squash." },
+            { name: "Outdoor Courts", note: "Basketball, Tennis, and Volleyball (Lit for night play)." }
+        ],
+        events: [
+            { name: "Aahvaan", type: "Annual Sports Fest", note: "One of the biggest sports events in Delhi." }
+        ]
+    },
     senior_hacks: [
         { spot: "MicMac Canteen", tip: "Get the 'Night Maggi' if you're studying late (open till 2 AM)." },
         { spot: "Raj Soin Hall", tip: "Best Chole Chawal for ₹50. Central hub for socializing." },
         { spot: "OAT (Open Air Theatre)", tip: "Best place to chill during winter afternoons. Great acoustics for practice." },
         { spot: "Science Block Rooftop", tip: "Hidden spot with the best view of the entire 164-acre campus." },
         { spot: "Back Gate Rickshaws", tip: "Walking to the main road saves you ₹10 compared to taking a rickshaw from inside." },
-        { spot: "Health Centre", tip: "Open 24/7. Keep your ID card handy for free basic medicines." }
+        { spot: "Health Centre", tip: "Open 24/7. Keep your ID card handy for free basic medicines." },
+        { spot: "Central Library", tip: "Use the 'SPS' (Special Study Areas) for absolute silence. Best for end-sem prep." },
+        { spot: "Admin Block", tip: "Visit before 11 AM for faster processing of forms. window 4 is the most active." },
+        { spot: "Nescii SAC", tip: "Great for collaborative work and societal meets. Free Wi-Fi is strongest here." }
     ],
+    food_and_social: {
+        spots: [
+            { name: "MicMac", recommendation: "The 'Cheese Maggi' and 'Cold Coffee' are legendary." },
+            { name: "Raj Soin", recommendation: "Economic thalis and great North Indian food." },
+            { name: "Nescii Canteen", recommendation: "Best for snacks and quick burgers." },
+            { name: "Amul / Mother Dairy", recommendation: "Perfect for quick ice-cream/milk shakes in summers." }
+        ]
+    },
     mess_timings: {
         breakfast: "7:30 AM - 9:00 AM",
         lunch: "12:30 PM - 2:15 PM",
@@ -187,16 +223,30 @@ const UNIVERSITY_INFO = {
             { name: "Emotional Intelligence", avg_gp: 9.07, tip: "Theory based but very logical. Easy to score if you read the PPTs once." },
             { name: "Logical Reasoning", avg_gp: 8.78, tip: "Practical and useful for CAT/Placements. Moderate effort needed." },
             { name: "Innovation and Entrepreneurship", avg_gp: 8.92, tip: "Fun projects, great faculty usually." },
-            { name: "Art of Happy Living", avg_gp: 9.81, tip: "The ultimate legend elective. Pick it if you see it. It's essentially meditation and basic life stuff." }
+            { name: "Art of Happy Living", avg_gp: 9.81, tip: "The ultimate legend elective. Pick it if you see it. It's essentially meditation and basic life stuff." },
+            { name: "Digital Marketing", avg_gp: 9.15, tip: "Group projects are key. Learn SEO/SEM basics beforehand." },
+            { name: "French / German", avg_gp: 8.50, tip: "Only take if you are serious about languages. Daily attendance often mandatory." }
         ],
+        department_electives_dec: {
+            "CSE": [
+                 { name: "Cloud Computing", difficulty: "Moderate", utility: "High for backend roles." },
+                 { name: "Computer Vision", difficulty: "High", utility: "Essential for AI research." }
+            ],
+            "ECE": [
+                 { name: "Robotics", difficulty: "Moderate", utility: "Fun practicals." },
+                 { name: "Antenna Design", difficulty: "Hard", utility: "Core ECE jobs only." }
+            ]
+        },
         tough_ones: [
             { name: "Deep Learning", avg_gp: 6.84, tip: "Pick ONLY if you are a math god or CSE/IT/SE student with projects. Grading is absolute." },
-            { name: "Distributed Systems", avg_gp: 7.12, tip: "High workload. Only for those serious about backend engineering." }
+            { name: "Distributed Systems", avg_gp: 7.12, tip: "High workload. Only for those serious about backend engineering." },
+            { name: "Advanced Control Systems", avg_gp: 6.5, tip: "Avoid unless you love Laplace transforms." }
         ],
         new_courses: [
             "VAC-Vivek Marg (Character Building)",
             "AEC-Cyber Security (Essential for all)",
-            "GEC-Financial Literacy (Great for non-tech)"
+            "GEC-Financial Literacy (Great for non-tech)",
+            "GEC-Personal Finance & Tax Planning"
         ],
         hacks: "AEC/VAC registration happens on a first-come, first-served basis on the portal. Be ready at 10:00 AM sharp on the date mentioned in the buzz section."
     },
@@ -207,7 +257,18 @@ const UNIVERSITY_INFO = {
             IT: "fresources.tech/dtu/it",
             ECE: "fresources.tech/dtu/ece",
             EE: "fresources.tech/dtu/ee",
-            MCE: "fresources.tech/dtu/mce"
+            MCE: "fresources.tech/dtu/mce",
+            ME: "fresources.tech/dtu/me",
+            CE: "fresources.tech/dtu/ce",
+            EP: "fresources.tech/dtu/ep",
+            BT: "fresources.tech/dtu/bt"
+        },
+        sem_wise_hacks: {
+            "Sem 1": "Foundational year. Focus on AM101 (Maths) & AP101 (Physics). Check folder 'First Year Common'.",
+            "Sem 2": "Branch specific introduction. EE/ECE students check 'Circuit Theory' folder carefully.",
+            "Sem 3": "Core subjects start. DSA for CSE, Analog for ECE. Use 'Standard Books' folder.",
+            "Sem 4": "Heaviest labs. Copy lab manuals from 'Lab Files' folder on fresources.",
+            "Sem 5": "Internship season. Check 'Coding Rounds' folder for company-specific archives."
         },
         organization: "Organized by Semester -> Branch -> Subject",
         pro_tip: "Search for 'PYQs' in the branch folder. For Maths-II (AM102), the 'Faculty PPTs' on fresources are 90% syllabus. Don't buy expensive books."
@@ -218,6 +279,13 @@ const UNIVERSITY_INFO = {
         scholarships: "Verification of NSP and MCM portal applications in progress at window 4, Admin block.",
         news: "DTU Team Defianz has qualified for Formula Student UK 2026!",
         official_portal: "https://result.dtu.ac.in/ (Check results for Odd Sem 2024-25 here)"
+    },
+    official_stats: {
+        nirf_ranking: "Ranked #29 in Engineering (NIRF 2024).",
+        highest_package: "₹1.8 Crore (International) by Palantir London.",
+        total_students: "15,000+ across B.Tech, M.Tech, MBA, and PhD.",
+        campus_area: "164 Acres (Rohini) + East Campus (Vivek Vihar).",
+        library_books: "200,000+ volumes in Central Library."
     }
 };
 

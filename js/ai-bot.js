@@ -70,13 +70,17 @@ const AIBot = {
 
         if (sender === 'bot') {
             // Extract suggested prompts
-            const promptMatch = text.match(/\[SUGGESTED_PROMPTS:\s*(.*?)\]/);
+            // Extract suggested prompts - Robust Parsing
+            const promptMatch = text.match(/\[SUGGESTED_PROMPTS:?([\s\S]*?)\]/);
             if (promptMatch) {
                 processedText = text.replace(promptMatch[0], '').trim();
                 try {
-                    // Extremely basic parse of "Q1", "Q2" format
-                    const rawPrompts = promptMatch[1].split(',').map(p => p.trim().replace(/^"|"$/g, ''));
-                    prompts = rawPrompts;
+                    // Handle both "Format: Q1, Q2" and "Format: \n Q1 \n Q2"
+                    const rawContent = promptMatch[1].trim();
+                     // Split by comma or newline, then clean quotes
+                    prompts = rawContent.split(/,|\n/).map(p => 
+                        p.trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '').replace(/^- /, '')
+                    ).filter(p => p.length > 2); // Filter out empty or tiny junk
                 } catch (e) { console.error("Prompt Parse Error", e); }
             }
             msgDiv.innerHTML = AIBot.parseMarkdown(processedText);
@@ -161,13 +165,24 @@ const AIBot = {
         AIBot.addMessage(message, 'user');
 
         try {
-            // Show loading state with animation
+            // Multi-stage thinking animation
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'message bot loading-msg';
-            loadingDiv.innerHTML = '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
             loadingDiv.id = 'bot-loading';
+            loadingDiv.innerHTML = '<span class="thinking-stage">Initializing Giga-Brain...</span><div class="dot-loader"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>';
             document.getElementById('chat-messages').appendChild(loadingDiv);
             document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
+            const thinkingStages = ["Synthesizing Context...", "Cross-Referencing Data...", "Drafting Strategy...", "Finalizing Intel..."];
+            let stageIdx = 0;
+            const stageInterval = setInterval(() => {
+                const stageEl = loadingDiv.querySelector('.thinking-stage');
+                if (stageEl && stageIdx < thinkingStages.length) {
+                    stageEl.textContent = thinkingStages[stageIdx++];
+                } else {
+                    clearInterval(stageInterval);
+                }
+            }, 800);
 
             const user = Auth.getCurrentUser();
             const db = DB.get();
@@ -176,7 +191,8 @@ const AIBot = {
                 (user.role === 'professor' && c.professor === user.name)
             );
 
-            const API_BASE = 'https://dtu-timetable-schedular-backend.onrender.com';
+            const API_BASE = 'http://localhost:3000'; // Local Dev URL
+            // const API_BASE = 'https://dtu-timetable-schedular-backend.onrender.com'; // Prod URL
 
             const response = await fetch(`${API_BASE}/api/ai/chat`, {
                 method: 'POST',

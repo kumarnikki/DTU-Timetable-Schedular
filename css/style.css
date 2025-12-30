@@ -31,10 +31,14 @@ body {
     radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 60%),
     radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
   background-attachment: fixed;
+  background-size: 200% 200%;
+
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--primary) transparent;
 }
+
+
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -621,10 +625,15 @@ header {
     backdrop-filter: blur(25px) saturate(200%);
     -webkit-backdrop-filter: blur(25px) saturate(200%);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255,255,255,0.05);
     border-radius: 1.5rem;
     /* position: relative; */
     overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.ultra-glass:hover {
+    box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(255,255,255,0.08);
 }
 
 .ultra-glass::before {
@@ -757,12 +766,29 @@ header {
 
 .loading-msg {
     display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.05) !important;
+    border: 1px dashed rgba(99, 102, 241, 0.3) !important;
+}
+
+.thinking-stage {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-light);
+    font-weight: 700;
+}
+
+.dot-loader {
+    display: flex;
     gap: 4px;
-    color: var(--text-muted);
 }
 
 .dot {
     animation: dotPulse 1.4s infinite;
+    font-weight: 900;
 }
 
 .dot:nth-child(2) { animation-delay: 0.2s; }
