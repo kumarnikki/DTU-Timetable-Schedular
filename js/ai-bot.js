@@ -99,6 +99,8 @@ const AIBot = {
                     message: message,
                     context: {
                         userInfo: { name: user.name, role: user.role, branch: user.branch, section: user.section },
+                        currentTime: new Date().toLocaleString(),
+                        dayOfWeek: new Date().toLocaleDateString('en-US', { weekday: 'long' }),
                         timetable: myClasses
                     }
                 })

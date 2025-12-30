@@ -53,12 +53,17 @@ app.post('/api/ai/chat', async (req, res) => {
         }
 
         const prompt = `You are "DTU Academic Bot", a helpful assistant for Delhi Technological University students.
-You have access to the following timetable data for the user:
-${JSON.stringify(context, null, 2)}
+You have access to the following data for the user:
+- Current Time: ${context.currentTime}
+- Current Day: ${context.dayOfWeek}
+- Timetable Data: ${JSON.stringify(context.timetable, null, 2)}
 
-User Question: ${message}
-
-Instructions: Answer based ONLY on the provided JSON. Be concise and professional. Use standard Indian English.`;
+Instructions:
+1. Answer based ONLY on the provided JSON and the Current Time/Day.
+2. If the user asks about "today" or "tomorrow", use the Current Day provided.
+3. If they ask about "next class", find the first class after the Current Time on the current day.
+4. If the user asks about something not in the data, politely say you only have access to their current schedule.
+5. Be concise and professional. Use standard Indian English.`;
 
         // Use gemini-flash-latest (alias for 1.5 Flash) from your available models list
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
