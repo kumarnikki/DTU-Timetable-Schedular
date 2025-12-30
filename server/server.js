@@ -36,31 +36,37 @@ app.use(bodyParser.json());
 const otpStore = new Map();
 
 // Email Transporter (Gmail)
-// Trying Port 587 with requireTLS as Port 465 timed out
+// Deep Debugging enabled to see exactly where it stops
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // Must be false for 587
+    service: 'gmail',
     auth: {
         user: config.EMAIL_USER,
         pass: config.EMAIL_PASS
     },
-    tls: {
-        rejectUnauthorized: false
-    },
-    connectionTimeout: 15000, 
-    greetingTimeout: 15000,
-    socketTimeout: 30000
+    debug: true, // Show full SMTP conversation in logs
+    logger: true, // Log to console
+    connectionTimeout: 20000, 
+    greetingTimeout: 20000,
+    socketTimeout: 40000
 });
 
 // Diagnostic Endpoint - Check if server can talk to Google
 app.get('/api/test-connection', async (req, res) => {
+    console.log('--- Starting SMTP Connection Test ---');
     try {
         await transporter.verify();
+        console.log('--- SMTP Test Success ---');
         res.json({ success: true, message: 'SMTP connection is healthy!' });
     } catch (error) {
-        console.error('SMTP Verify Error:', error);
-        res.status(500).json({ success: false, message: error.message });
+        console.error('--- SMTP Test Failed ---');
+        console.error('Code:', error.code);
+        console.error('Full Error:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: error.message, 
+            code: error.code,
+            command: error.command 
+        });
     }
 });
 
