@@ -6,8 +6,8 @@ const Auth = {
     // API Configuration
     // CHANGE THIS URL WHEN DEPLOYING:
     // Local: 'http://localhost:3000'
-    // Production: 'https://your-server-url.onrender.com'
-    API_BASE_URL: 'http://localhost:3000', 
+    // Production: 'https://dtu-timetable-schedular-backend.onrender.com'
+    API_BASE_URL: 'https://dtu-timetable-schedular-backend.onrender.com', 
     
     key: 'currentUser',
 
