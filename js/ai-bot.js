@@ -191,8 +191,8 @@ const AIBot = {
                 (user.role === 'professor' && c.professor === user.name)
             );
 
-            const API_BASE = 'http://localhost:3000'; // Local Dev URL
-            // const API_BASE = 'https://dtu-timetable-schedular-backend.onrender.com'; // Prod URL
+            // const API_BASE = 'http://localhost:3000'; // Local Dev URL
+            const API_BASE = 'https://dtu-timetable-schedular-backend.onrender.com'; // Prod URL
 
             const response = await fetch(`${API_BASE}/api/ai/chat`, {
                 method: 'POST',
