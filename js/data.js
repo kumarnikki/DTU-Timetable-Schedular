@@ -500,7 +500,7 @@ const TIMETABLE_SKELETON = {
                     '11-12': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF5', professor: 'Renuka Bokolia' },
                     '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF5', professor: 'Neha Verma / Aarti' },
                     '4-5': { code: 'CS106', subject: 'BASICS OF ML(Lab)', venue: '', professor: 'Anshika Arora' },
-                    '5-6': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Renuka Bokolia' }
+                    '5-6': { code: 'CS106', subject: 'BASICS OF ML(Lab)', venue: '', professor: 'Anshika Arora' }
                 },
                 'Wednesday': {
                     '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF2', professor: 'Neha Verma' }
