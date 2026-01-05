@@ -612,6 +612,114 @@ const TIMETABLE_SKELETON = {
                 }
             }
         }
+    },
+    'SE': {
+        '2': { // 2nd Semester
+            '1': { // Section 1 (from Screenshot 2026-01-05 215309.png)
+                'Monday': {
+                    '10-11': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF4', professor: 'Priyanka Arora' },
+                    '12-1': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'ASE LAB', professor: 'Shweta Gupta / Swechchha Gupta' },
+                    '1-2': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'ASE LAB', professor: 'Shweta Gupta / Swechchha Gupta' },
+                    '2-3': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF3', professor: 'Shubhadip Das' },
+                    '4-5': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF3', professor: 'Sanjay Patidar' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF3', professor: 'Priyanka Arora' },
+
+                    '12-1': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1(DBMS)/G2(CS)/G3(SE)', professor: 'Priyanka Arora' },
+                    '1-2': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1(DBMS)/G2(CS)/G3(SE)', professor: 'Priyanka Arora' },
+                    '3-4': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF4', professor: 'Shubhadip Das' }
+                },
+                'Wednesday': {
+                    '9-10': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF4', professor: 'Anshul Arora' },
+                    '10-11': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-FF4', professor: 'Anshul Arora / Suruchi Jain' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '12-1': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF4', professor: 'Shubhadip Das' },
+                    '4-5': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'AB4-703/AB4-602', professor: 'Shweta Gupta / Swechchha Gupta' },
+                    '5-6': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'AB4-703/AB4-602', professor: 'Shweta Gupta / Swechchha Gupta' }
+                },
+                'Friday': {
+                    '9-10': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF4', professor: 'Sanjay Patidar' },
+                    '10-11': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF4', professor: 'Sanjay Patidar' },
+                    '12-1': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF4', professor: 'Anshul Arora' }
+                }
+            },
+            '2': { // Section 2 (from Screenshot 2026-01-05 215324.png)
+                'Monday': {
+                    '10-11': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF3', professor: 'Rahul' },
+                    '11-12': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-GF5', professor: 'Ram Murti Rawat' },
+                    '2-3': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'SE LAB/DBMS LAB', professor: 'Sanjay Patidar / Dr. Rahul' },
+                    '3-4': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'SE LAB/DBMS LAB', professor: 'Sanjay Patidar / Dr. Rahul' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '12-1': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF5', professor: 'Rahul' },
+                    '2-3': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF5', professor: 'Abhilasha Sharma' }
+                },
+                'Wednesday': {
+                    '11-12': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF6', professor: 'Ram Murti Rawat' },
+                    '2-3': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1(DBMS)/G2(CS)/G3(SE)', professor: 'Rahul' },
+                    '3-4': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1(DBMS)/G2(CS)/G3(SE)', professor: 'Rahul' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '11-12': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF5', professor: 'Sumedha Seniaray' },
+                    '2-3': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF4', professor: 'Abhilasha Sharma' },
+                    '3-4': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF4', professor: 'Abhilasha Sharma' }
+                },
+                'Friday': {
+                    '9-10': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L+T)', venue: 'PB-FF6', professor: 'Ram Murti Rawat' },
+                    '10-11': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L+T)', venue: 'PB-FF6', professor: 'Ram Murti Rawat' },
+                    '11-12': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF5', professor: 'Sumedha Seniaray' },
+                    '12-1': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-FF5', professor: 'Sumedha Seniaray / Aashna Tasawwur' },
+                    '2-3': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'SE LAB/DBMS LAB', professor: 'Sanjay Patidar / Dr. Rahul' },
+                    '3-4': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'SE LAB/DBMS LAB', professor: 'Sanjay Patidar / Dr. Rahul' }
+                }
+            },
+            '3': { // Section 3 (from Screenshot 2026-01-05 215338.png)
+                'Monday': {
+                    '2-3': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF5', professor: 'Geetanjali Garg' },
+                    '3-4': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF5', professor: 'Geetanjali Garg' },
+                    '4-5': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF5', professor: 'Shweta Gupta' },
+                    '5-6': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (T)', venue: 'PB-FF5', professor: 'Shweta Gupta' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF5', professor: 'Geetanjali Garg' },
+                    '12-1': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF5', professor: 'Ram Murti Rawat' },
+                    '2-3': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'CS LAB/ASE LAB', professor: 'Priya Singh / Shweta Meena' },
+                    '3-4': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'CS LAB/ASE LAB', professor: 'Priya Singh / Shweta Meena' }
+                },
+                'Wednesday': {
+                    '8-9': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-GF4', professor: 'Ram Murti Rawat' },
+                    '9-10': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-GF4', professor: 'Ram Murti Rawat' },
+                    '10-11': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF5', professor: 'Rohit Kumar' },
+                    '11-12': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-FF5', professor: 'Rohit Kumar / Kriss Gunjan' },
+                    '12-1': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'ASE LAB/CS LAB', professor: 'Geetanjali Garg' },
+                    '1-2': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'ASE LAB/CS LAB', professor: 'Geetanjali Garg' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '3-4': { code: 'SE104', subject: 'FUNDAMENTALS OF SOFTWARE ENGINEERING (L)', venue: 'PB-FF5', professor: 'Ram Murti Rawat' }
+                },
+                'Friday': {
+                    '8-9': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'CS LAB/ASE LAB', professor: 'Priya Singh / Shweta Meena' },
+                    '9-10': { code: 'SEC-1 (SE106)', subject: 'COMPUTER WORKSHOP II (LAB)', venue: 'CS LAB/ASE LAB', professor: 'Priya Singh / Shweta Meena' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF5', professor: 'Rohit Kumar' },
+                    '4-5': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF5', professor: 'Shweta Gupta' },
+                    '5-6': { code: 'SE102', subject: 'FUNDAMENTALS OF MATHEMATICS IN CS (L)', venue: 'PB-FF5', professor: 'Shweta Gupta' }
+                }
+            }
+        }
     }
 };
 
