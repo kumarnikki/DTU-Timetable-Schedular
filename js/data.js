@@ -296,52 +296,284 @@ const TIME_SLOTS = [
 
 /**
  * TIMETABLE SKELETON
- * Format: Branch -> Semester -> Section -> Day -> TimeSlot
- * Use this structure to feed your data.
+ * Branch: Mathematics & Computing (MC)
+ * Semester: 2
+ * Sections: 1, 2, 3
  */
 const TIMETABLE_SKELETON = {
-    'CSE': {
+    'MC': {
         '2': { // 2nd Semester
-            '1': { // Section 1
+            '1': { // Section 1 (from Image 1)
                 'Monday': {
-                    '9-10': { code: 'CS104', subject: 'Data Structures (L)', venue: 'PB-GF4', professor: 'Dr. Vineet Kumar' },
-                    '10-11': { code: 'AM102', subject: 'Mathematics-II (L)', venue: 'PB-GF4', professor: 'Math Faculty' },
-                    '11-12': { code: 'AM102', subject: 'Mathematics-II (T)', venue: 'AB3', professor: 'Math Faculty' }, // Tutorial group 1
-                    '3-4': { code: 'CS102', subject: 'Discrete Structure (L)', venue: 'SPS6', professor: 'Dr. Faculty' },
-                    '4-5': { code: 'CS104', subject: 'Data Structures (Lab)', venue: 'Lab', professor: 'Dr. Vineet Kumar' },
-                    '5-6': { code: 'CS104', subject: 'Data Structures (Lab)', venue: 'Lab', professor: 'Dr. Vineet Kumar' }
+                    '10-11': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1 ML Lab/G2 IS Lab/G3 DSCA Lab', professor: 'Anita Thakur' },
+                    '11-12': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1 ML Lab/G2 IS Lab/G3 DSCA Lab', professor: 'Anita Thakur' },
+                    '12-1': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P1-I(CL1)/P2-II(CL2)/P3-I(CL3)', professor: 'Naokant Deo' },
+                    '1-2': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P1-I(CL1)/P2-II(CL2)/P3-I(CL3)', professor: 'Naokant Deo' },
+                    '3-4': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L)', venue: 'PB-FF4', professor: 'Meenakshi Diwan' },
+                    '4-5': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L)', venue: 'PB-FF2', professor: 'Shubham Kumar Dhiman' },
+                    '5-6': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L)', venue: 'PB-FF2', professor: 'Shubham Kumar Dhiman' }
                 },
                 'Tuesday': {
                     '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
-                    '10-11': { code: 'AP102', subject: 'Physics (L)', venue: 'PB-GF4', professor: 'Physics Faculty' },
-                    '11-12': { code: 'AM102', subject: 'Mathematics-II (T)', venue: 'AB-3', professor: 'Math Faculty' },
-                    '2-3': { code: 'CS102', subject: 'Discrete Structure (L+T)', venue: 'PB-GF4', professor: 'Faculty' }
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-GF3', professor: 'Anita Thakur' },
+                    '12-1': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L+T)', venue: 'SPS7', professor: 'Shubham Kumar Dhiman' }
                 },
                 'Wednesday': {
-                    '10-11': { code: 'SEC-1', subject: 'Basics of ML (CS-106)', venue: 'AB-4', professor: 'Faculty' },
-                    '11-12': { code: 'CS104', subject: 'Data Structures (L)', venue: 'PB-GF4', professor: 'Dr. Vineet Kumar' },
-                    '2-3': { code: 'AP102', subject: 'Physics (Lab)', venue: 'Lab', professor: 'Physics Faculty' }
+                    '12-1': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L)', venue: 'PB-FF3', professor: 'Meenakshi Diwan' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF2', professor: 'Naokant Deo' }
                 },
                 'Thursday': {
                     '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
-                    '9-10': { code: 'CS102', subject: 'Discrete Structure (L)', venue: 'PB-GF4', professor: 'Faculty' }
+                    '12-1': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P1-II(CL1)/P2-I(CL2)/P3-II(CL3)', professor: 'Naokant Deo' },
+                    '1-2': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P1-II(CL1)/P2-I(CL2)/P3-II(CL3)', professor: 'Naokant Deo' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF2', professor: 'Naokant Deo' }
                 },
                 'Friday': {
-                    '8-9': { code: 'AM102', subject: 'Mathematics-II (L)', venue: 'PB-GF4', professor: 'Math Faculty' },
-                    '9-10': { code: 'AP102', subject: 'Physics (L)', venue: 'PB-GF4', professor: 'Physics Faculty' }
+                    '12-1': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-FF2', professor: 'Naokant Deo / Dipesh' },
+                    '3-4': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-GF6', professor: 'Anita Thakur' },
+                    '4-5': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L+T)', venue: 'PB-GF6', professor: 'Meenakshi Diwan' }
+                }
+            },
+            '2': { // Section 2 (from Image 3)
+                'Monday': {
+                    '8-9': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L)', venue: 'PB-FF2', professor: 'Aditya Kaushik' },
+                    '11-12': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L)', venue: 'PB-FF3', professor: 'Meena Rawat' },
+                    '2-3': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P4-I(CL1)/P5-I(CL2)/P6-I(CL3)', professor: 'Ramesh Srivastava' },
+                    '3-4': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P4-I(CL1)/P5-I(CL2)/P6-I(CL3)', professor: 'Ramesh Srivastava' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '11-12': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L+T)', venue: 'PB-FF3', professor: 'Aditya Kaushik' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF3', professor: 'Payal' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-FF3', professor: 'Payal / Drishti Vashisth' }
+                },
+                'Wednesday': {
+                    '10-11': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L+T)', venue: 'PB-FF3', professor: 'Meena Rawat' },
+                    '3-4': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF1', professor: 'Anuradha Singhal' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P4-II(CL1)/P5-II(CL2)/P6-II(CL3)', professor: 'Ramesh Srivastava' },
+                    '11-12': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P4-II(CL1)/P5-II(CL2)/P6-II(CL3)', professor: 'Ramesh Srivastava' },
+                    '2-3': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1 ML Lab/G2 IS Lab/G3 DSCA Lab', professor: 'Anuradha Singhal' },
+                    '3-4': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1 ML Lab/G2 IS Lab/G3 DSCA Lab', professor: 'Anuradha Singhal' }
+                },
+                'Friday': {
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF3', professor: 'Payal' },
+                    '4-5': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF3', professor: 'Anuradha Singhal' }
+                }
+            },
+            '3': { // Section 3 (from Image 2)
+                'Monday': {
+                    '3-4': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L)', venue: 'SPS7', professor: 'Dr. Pooja Yadav' },
+                    '5-6': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'SPS7', professor: 'Rohit Kumar / Kriss Gunjan' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P7-II(CL1)/P8-II(CL2)/P9-II(CL3)', professor: 'Sangita Kansal' },
+                    '11-12': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P7-II(CL1)/P8-II(CL2)/P9-II(CL3)', professor: 'Sangita Kansal' },
+                    '12-1': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF4', professor: 'Madhu' },
+                    '2-3': { code: 'MC104', subject: 'COMPLEX ANALYSIS (L+T)', venue: 'PB-FF4', professor: 'Dr. Pooja Yadav' }
+                },
+                'Wednesday': {
+                    '10-11': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P7-I(CL1)/P8-I(CL2)/P9-I(CL3)', professor: 'Sangita Kansal' },
+                    '11-12': { code: 'SEC-1 (MC106)', subject: 'MATLAB PROGRAMMING (LAB)', venue: 'P7-I(CL1)/P8-I(CL2)/P9-I(CL3)', professor: 'Sangita Kansal' },
+                    '1-2': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF3', professor: 'Madhu' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF3', professor: 'Rohit Kumar' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L)', venue: 'SPS 8', professor: 'Dr. Anuma Garg' },
+                    '12-1': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1 ML Lab/G2 IS Lab/G3 DSCA Lab', professor: 'Madhu' },
+                    '1-2': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (LAB)', venue: 'G1 ML Lab/G2 IS Lab/G3 DSCA Lab', professor: 'Madhu' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-FF1', professor: 'Rohit Kumar' }
+                },
+                'Friday': {
+                    '9-10': { code: 'MC102', subject: 'DISCRETE MATHEMATICS (L+T)', venue: 'PB-FF3', professor: 'Dr. Anuma Garg' }
                 }
             }
         }
     },
-    'EE': {
-        '2': {
-             '1': {
-                 'Monday': {
-                     '12-1': { code: 'EE104', subject: 'Circuit Theory (Lab)', venue: 'PB-GF6', professor: 'Faculty' },
-                     '2-3': { code: 'AP102', subject: 'Physics (L)', venue: 'PB-GF6', professor: 'Dr. Neha' },
-                     '3-4': { code: 'AM102', subject: 'Mathematics-II (L)', venue: 'PB-GF6', professor: 'Math Faculty' }
-                 }
-             }
+    'CSE': {
+        '2': { // 2nd Semester
+            '1': { // Section 1 (from Screenshot 2026-01-05 203804.png)
+                'Monday': {
+                    '9-10': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF4', professor: 'Manoj Kumar' },
+                    '11-12': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF4', professor: 'Jamkhongam Touthang' },
+                    '12-1': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF4', professor: 'Jamkhongam Touthang / Neetu Malik' },
+                    '2-3': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML (L)', venue: 'SPS-6', professor: 'Anshika Arora' },
+                    '3-4': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'SPS6', professor: 'Bhupesh Singh Bhatia' },
+                    '4-5': { code: 'CS104', subject: 'DATA STRUCTURES (Lab)', venue: '', professor: 'Manoj Kumar' },
+                    '5-6': { code: 'CS104', subject: 'DATA STRUCTURES (Lab)', venue: '', professor: 'Manoj Kumar' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF4', professor: 'Rinku Sharma' },
+                    '2-3': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L+T)', venue: 'PB-GF4', professor: 'Bhupesh Singh Bhatia' }
+                },
+                'Wednesday': {
+                    '11-12': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML (Lab)', venue: 'PB GF 4', professor: 'Anshika Arora' },
+                    '12-1': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF4', professor: 'Manoj Kumar' },
+                    '2-3': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Rinku Sharma / Priyanka' },
+                    '3-4': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Rinku Sharma / Priyanka' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF4', professor: 'Bhupesh Singh Bhatia' }
+                },
+                'Friday': {
+                    '8-9': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF4', professor: 'Jamkhongam Touthang' },
+                    '9-10': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF4', professor: 'Rinku Sharma' }
+                }
+            },
+            '2': { // Section 2 (from Screenshot 2026-01-05 203828.png)
+                'Monday': {
+                    '12-1': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'SPS5', professor: 'Anukriti Kaushal' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF4', professor: 'Payal' },
+                    '4-5': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF4', professor: 'Kamal Kishor' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '12-1': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF4', professor: 'Bhupesh Singh Bhatia' },
+                    '1-2': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF4', professor: 'Kamal Kishor' },
+                    '3-4': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML (L)', venue: 'PB-GF2', professor: 'Anshika Arora' }
+                },
+                'Wednesday': {
+                    '11-12': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'SPS-5', professor: 'Bhupesh Singh Bhatia' },
+                    '12-1': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'SPS5', professor: 'Anukriti Kaushal' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF4', professor: 'Payal' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '12-1': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'SPS 6', professor: 'Payal / Drishti Vashisth' },
+                    '1-2': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF4', professor: 'Anukriti Kaushal' },
+                    '2-3': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF4', professor: 'Bhupesh Singh Bhatia' }
+                },
+                'Friday': {
+                    '10-11': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Kamal Kishor' },
+                    '11-12': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Kamal Kishor' }
+                }
+            },
+            '3': { // Section 3 (from Screenshot 2026-01-05 203840.png)
+                'Monday': {
+                    '8-9': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PBGF-5', professor: 'Reema Sachdeva' },
+                    '9-10': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PBGF-5', professor: 'R. K. Sinha' },
+                    '12-1': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PBGF-5', professor: 'Reema Sachdeva' },
+                    '1-2': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML', venue: 'PBGF-5', professor: 'Anshika Arora' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '12-1': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PBGF-5', professor: 'R. K. Sinha' },
+                    '1-2': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF5', professor: 'Sangita Kansal' }
+                },
+                'Wednesday': {
+                    '11-12': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PBGF-5', professor: 'Anurag Goel' },
+                    '3-4': { code: 'CS102', subject: 'DISCRETE STRUCTURE (T)', venue: 'PBGF-5', professor: 'Reema Sachdeva' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '11-12': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PBGF-5', professor: 'Anurag Goel' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PBGF-5', professor: 'Sangita Kansal' }
+                },
+                'Friday': {
+                    '11-12': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-FF4', professor: 'Reema Sachdeva' },
+                    '12-1': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'R. K. Sinha' },
+                    '1-2': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'R. K. Sinha' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF5', professor: 'Sangita Kansal / Anju' }
+                }
+            },
+            '4': { // Section 4 (from Screenshot 2026-01-05 203854.png)
+                'Monday': {
+                    '8-9': { code: 'CS104', subject: 'DATA STRUCTURES (Lab)', venue: '', professor: 'Col R Sreejeth' },
+                    '9-10': { code: 'CS104', subject: 'DATA STRUCTURES (Lab)', venue: '', professor: 'Col R Sreejeth' },
+                    '1-2': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF6', professor: 'Col R Sreejeth' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF5', professor: 'Neha Verma' },
+                    '4-5': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF5', professor: 'Renuka Bokolia' },
+                    '5-6': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF5', professor: 'Renuka Bokolia' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF5', professor: 'Snigdha Agrawal' },
+                    '11-12': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF5', professor: 'Renuka Bokolia' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF5', professor: 'Neha Verma / Aarti' },
+                    '4-5': { code: 'CS106', subject: 'BASICS OF ML(Lab)', venue: '', professor: 'Anshika Arora' },
+                    '5-6': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Renuka Bokolia' }
+                },
+                'Wednesday': {
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF2', professor: 'Neha Verma' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML', venue: 'PB-FF4', professor: 'Anshika Arora' },
+                    '12-1': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF5', professor: 'Col R Sreejeth' },
+                    '1-2': { code: 'CS102', subject: 'DISCRETE STRUCTURE (T)', venue: 'PB-GF5', professor: 'Col R Sreejeth' },
+                    '2-3': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'SPS 7', professor: 'Snigdha Agrawal' },
+                    '3-4': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'SPS 7', professor: 'Snigdha Agrawal' }
+                },
+                'Friday': {
+                    '1-2': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF4', professor: 'Col R Sreejeth' },
+                    '4-5': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Renuka Bokolia' },
+                    '5-6': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Renuka Bokolia' }
+                }
+            },
+            '5': { // Section 5 (from Screenshot 2026-01-05 203910.png)
+                'Monday': {
+                    '11-12': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PBGF-6', professor: 'Pooja Gupta' },
+                    '12-1': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PBGF-6', professor: 'Anjali Bansal' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF5', professor: 'B. K. Tyagi / Sunil Kumar' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '12-1': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PBGF-6', professor: 'B. K. Tyagi' },
+                    '2-3': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML', venue: 'PBGF-6', professor: 'Anshika Arora' }
+                },
+                'Wednesday': {
+                    '8-9': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PBGF-6', professor: 'B. K. Tyagi' },
+                    '10-11': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PBGF-6', professor: 'Pooja Gupta' },
+                    '12-1': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PBGF-6', professor: 'Vinod Singh' },
+                    '3-4': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PBGF-6', professor: 'Anjali Bansal' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '11-12': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L+T)', venue: 'PBGF-6', professor: 'Anjali Bansal' }
+                },
+                'Friday': {
+                    '12-1': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PBGF-6', professor: 'Vinod Singh' },
+                    '2-3': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Vinod Singh / Umang Meena' },
+                    '3-4': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Vinod Singh / Umang Meena' }
+                }
+            },
+            '6': { // Section 6 (from Screenshot 2026-01-05 203923.png)
+                'Monday': {
+                    '8-9': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L+T)', venue: 'PB-GF6', professor: 'Col R Sreejeth' },
+                    '2-3': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'AB-4 515', professor: 'Yogendra K Meena' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'SPS6', professor: 'Col R Sreejeth' },
+                    '12-1': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Yogendra K Meena' },
+                    '1-2': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Yogendra K Meena' },
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF5', professor: 'Nitika / Asish Saini' }
+                },
+                'Wednesday': {
+                    '10-11': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF4', professor: 'Nitika' },
+                    '12-1': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'SPS-7', professor: 'Yogendra K Meena' },
+                    '1-2': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF6', professor: 'Kavinder Singh' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF6', professor: 'Kavinder Singh' },
+                    '1-2': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF6', professor: 'Nitika' }
+                },
+                'Friday': {
+                    '10-11': { code: 'CS102', subject: 'DISCRETE STRUCTURE (L)', venue: 'PB-GF6', professor: 'Col R Sreejeth' },
+                    '12-1': { code: 'SEC-1 (CS106)', subject: 'BASICS OF ML', venue: 'PB-FF6', professor: 'Anshika Arora' }
+                }
+            }
         }
     }
 };
