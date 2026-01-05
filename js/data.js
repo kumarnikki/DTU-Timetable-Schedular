@@ -575,6 +575,43 @@ const TIMETABLE_SKELETON = {
                 }
             }
         }
+    },
+    'CSDA': {
+        '2': { // 2nd Semester
+            '1': { // Section 1
+                'Monday': {
+                    '10-11': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF2', professor: 'Kamal Kishor' },
+                    '11-12': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF2', professor: 'Kamal Kishor' },
+                    '3-4': { code: 'DA104/CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF2', professor: 'Manoj Kumar' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'DA104/CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF6', professor: 'Manoj Kumar' },
+                    '11-12': { code: 'DA104/CS104', subject: 'DATA STRUCTURES (L)', venue: 'PB-GF6', professor: 'Manoj Kumar' },
+                    '2-3': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Kamal Kishor' },
+                    '3-4': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Kamal Kishor' }
+                },
+                'Wednesday': {
+                    '10-11': { code: 'DA102', subject: 'Applied Statistical Interference and Simulation (L)', venue: 'PB-GF3', professor: 'Jayati Gulati' },
+                    '11-12': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-GF3', professor: '' }, // Professor not listed in footer
+                    '2-3': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'SPS10', professor: 'Trasha Gupta / Ms. Shiksha' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'SPS10', professor: 'Trasha Gupta' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF5', professor: 'Kamal Kishor' },
+                    '11-12': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'PB-FF6', professor: '' },
+                    '3-4': { code: 'DA102', subject: 'Applied Statistical Interference and Simulation (L)', venue: 'PB-GF6', professor: 'Jayati Gulati' }
+                },
+                'Friday': {
+                    '8-9': { code: 'CO102', subject: 'PROGRAMMING FUNDAMENTALS (L)', venue: 'AB-4 515', professor: '' },
+                    '9-10': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'SPS 6', professor: 'Trasha Gupta' },
+                    '10-11': { code: 'DA102', subject: 'Applied Statistical Interference and Simulation (L)', venue: 'PB-GF5', professor: 'Jayati Gulati' }
+                }
+            }
+        }
     }
 };
 
