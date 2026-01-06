@@ -720,6 +720,76 @@ const TIMETABLE_SKELETON = {
                 }
             }
         }
+    },
+    'IT': {
+        '2': { // 2nd Semester
+            '1': { // Section 1 (from Screenshot 2026-01-06 161719.png)
+                'Monday': {
+                    '8-9': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF3', professor: 'R. K. Sinha' },
+                    '10-11': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'SPS10', professor: 'Anshul Arora / Suruchi Jain' },
+                    '11-12': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'SPS10', professor: 'Anshul Arora' },
+                    '1-2': { code: 'IT102', subject: 'DISCRETE STRUCTURES (L+T)', venue: 'PB-GF3', professor: 'Bhupesh Bhatia' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'SEC-1 (IT106)', subject: 'OPEN SOURCE PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Devika Karki' },
+                    '11-12': { code: 'SEC-1 (IT106)', subject: 'OPEN SOURCE PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Devika Karki' }
+                },
+                'Wednesday': {
+                    '9-10': { code: 'SEC-1 (IT106)', subject: 'OPEN SOURCE PROGRAMMING (L)', venue: 'SPS 6', professor: 'Devika Karki' },
+                    '10-11': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'R. K. Sinha / Sheetal Kumari' },
+                    '11-12': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'R. K. Sinha / Sheetal Kumari' },
+                    '2-3': { code: 'IT102', subject: 'DISCRETE STRUCTURES (L)', venue: 'PB-GF3', professor: 'Bhupesh Bhatia' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '10-11': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Akshay Mool' },
+                    '11-12': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Akshay Mool' },
+                    '1-2': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (L)', venue: 'PB-GF3', professor: 'Akshay Mool' },
+                    '2-3': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF3', professor: 'R. K. Sinha' }
+                },
+                'Friday': {
+                    '8-9': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF3', professor: 'Anshul Arora' },
+                    '11-12': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (L)', venue: 'PB-GF3', professor: 'Akshay Mool' },
+                    '1-2': { code: 'IT102', subject: 'DISCRETE STRUCTURES (L)', venue: 'PB-GF3', professor: 'Bhupesh Bhatia' }
+                }
+            },
+            '2': { // Section 2 (from Screenshot 2026-01-06 161731.png)
+                'Monday': {
+                    '1-2': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (L)', venue: 'PB-GF2', professor: 'Ankit Yadav' },
+                    '2-3': { code: 'SEC-1 (IT106)', subject: 'OPEN SOURCE PROGRAMMING (L)', venue: 'SPS8', professor: 'Vaibhav' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (T)', venue: 'PB-GF3', professor: 'Neha Bhatia / Nitesh' }
+                },
+                'Tuesday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '11-12': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF3', professor: 'Richa Sharma' },
+                    '1-2': { code: 'IT102', subject: 'DISCRETE STRUCTURES (L+T)', venue: 'PB-GF3', professor: 'Bhupesh Bhatia' }
+                },
+                'Wednesday': {
+                    '8-9': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Richa Sharma' },
+                    '9-10': { code: 'AP102', subject: 'PHYSICS (Lab)', venue: '', professor: 'Richa Sharma' },
+                    '10-11': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Ankit Yadav' },
+                    '11-12': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Ankit Yadav' },
+                    '1-2': { code: 'IT102', subject: 'DISCRETE STRUCTURES (L)', venue: 'PB-GF4', professor: 'Bhupesh Bhatia' }
+                },
+                'Thursday': {
+                    '8-9': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '9-10': { code: 'AEC/VAC', subject: 'AEC/VAC', venue: '', professor: '' },
+                    '1-2': { code: 'IT102', subject: 'DISCRETE STRUCTURES (L)', venue: 'PB-FF2', professor: 'Bhupesh Bhatia' },
+                    '2-3': { code: 'AP102', subject: 'PHYSICS (L)', venue: 'PB-GF1', professor: 'Richa Sharma' },
+                    '3-4': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PBGF1', professor: 'Neha Bhatia' }
+                },
+                'Friday': {
+                    '12-1': { code: 'SEC-1 (IT106)', subject: 'OPEN SOURCE PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Vaibhav' },
+                    '1-2': { code: 'SEC-1 (IT106)', subject: 'OPEN SOURCE PROGRAMMING (LAB)', venue: 'NIOT LAB/DSA LAB/PR LAB', professor: 'Vaibhav' },
+                    '2-3': { code: 'IT104', subject: 'OBJECT ORIENTED PROGRAMMING (L)', venue: 'PB-GF3', professor: 'Ankit Yadav' },
+                    '4-5': { code: 'AM102', subject: 'MATHEMATICS-II (L)', venue: 'PB-GF3', professor: 'Neha Bhatia' }
+                }
+            }
+        }
     }
 };
 
